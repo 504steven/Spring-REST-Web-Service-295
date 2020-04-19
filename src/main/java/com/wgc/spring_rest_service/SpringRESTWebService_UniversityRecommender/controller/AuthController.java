@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @CrossOrigin("*")
 public class AuthController {
@@ -22,7 +24,7 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public boolean login(String username, String pswd) {
+    public boolean login(HttpServletRequest httpServletRequest) {
         return  true;
     }
 

@@ -11,6 +11,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+    public static final String SECRET = "cmpe295";
+    public static final long EXPIRATION_TIME = 864_000_0; // 10 days
+    public static final String TOKEN_PREFIX = "Bearer ";
+    public static final String HEADER_STRING = "Authorization";
 
     private static final String[] AUTH_WHITELIST = {
             // -- swagger ui
@@ -35,7 +39,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/admin").hasRole("Role_Admin")
+                .anyRequest().hasAnyRole("Role_Admin", "Role_Student");
     }
 
     @Override
