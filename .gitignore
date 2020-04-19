@@ -14,7 +14,7 @@ target/
 universityRecommender-log.txt
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
