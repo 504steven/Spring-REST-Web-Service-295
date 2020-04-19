@@ -7,10 +7,10 @@
     </appender>
 
     <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>designyourlife-log.txt</file>
+        <file>universityRecommender-log.txt</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>designyourlife-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+            <fileNamePattern>universityRecommender-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
             <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
             <maxFileSize>10KB</maxFileSize>
             <maxHistory>2</maxHistory>
