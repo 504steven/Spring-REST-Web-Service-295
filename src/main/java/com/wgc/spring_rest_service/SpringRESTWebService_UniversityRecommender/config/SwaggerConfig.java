@@ -30,14 +30,14 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.example.designyourlife.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.controller"))
                 .paths(PathSelectors.regex("/.*"))
                 .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Project:Design Your Life")
+                .title("Project : Design Your University")
                 .description("CMPE 295 Project")
                 .version("v1.0")
                 .build();

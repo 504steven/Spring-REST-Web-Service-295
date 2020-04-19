@@ -5,10 +5,9 @@ import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.db
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
-@Repository
+@RestController
 @CrossOrigin("*")
 @RequestMapping("/auth")
 public class AuthController {

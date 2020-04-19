@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
-
 @Repository
 public class StudentDao {
     @Autowired
@@ -16,7 +15,7 @@ public class StudentDao {
 
     public int saveStudent(Student s){
         String sql = "INSERT INTO student (NAME, AGE, GENDER, SAT_MATH, SAT_VERBAL, EXPENSE_LIMIT) VALUES(?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, s.getName(), s.getAge(), s.getGender(), s.getSatMath(), s.getSatVerbal(), s.getExpense_limit());
+        return jdbcTemplate.update(sql, s.getLastName(), s.getAge(), s.getGender(), s.getSAT_math(), s.getSAT_verbal(), s.getExpense_limit());
     }
 
     public Student getStudent(int id){
