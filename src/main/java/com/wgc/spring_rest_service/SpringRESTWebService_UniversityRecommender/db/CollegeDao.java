@@ -4,7 +4,7 @@ import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.en
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UniversityDao {
+public class CollegeDao {
 
     public boolean saveUniversity(College college) {
         return true;

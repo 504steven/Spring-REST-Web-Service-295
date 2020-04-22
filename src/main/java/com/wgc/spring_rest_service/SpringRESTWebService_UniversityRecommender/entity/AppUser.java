@@ -1,19 +1,18 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class AppUser extends User {
+public class AppUser{
     private int userId;
     private String email;       // userdetails.User username
     private String password;
     private String firstName;
     private String lastName;
-    private List<String> roles = new ArrayList<>();
+    private List<String> roles = new ArrayList<>();     // user can be in different roles/groups
 
     private String gender;
     private String status;
@@ -26,14 +25,7 @@ public class AppUser extends User {
     private int SAT_verbal;
     private int expense_limit;
 
-    public AppUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, authorities);
-    }
-
-    public AppUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-    }
-
+    
     public int getUserId() {
         return userId;
     }

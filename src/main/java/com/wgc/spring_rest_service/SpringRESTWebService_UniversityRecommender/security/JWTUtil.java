@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
 public class JWTUtil {
-    private static Logger logger = LoggerFactory.getLogger("root");
+    private static Logger logger = LoggerFactory.getLogger( JWTUtil.class);
 
     public static Authentication verify(String token) {
         DecodedJWT deocodedJWT  = null;
