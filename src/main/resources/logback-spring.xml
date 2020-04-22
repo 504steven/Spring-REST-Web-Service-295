@@ -10,11 +10,11 @@
         <file>universityRecommender-log.txt</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>universityRecommender-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+            <fileNamePattern>universityRecommender-log-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
             <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
-            <maxFileSize>10KB</maxFileSize>
+            <maxFileSize>1KB</maxFileSize>
             <maxHistory>2</maxHistory>
-            <totalSizeCap>1MB</totalSizeCap>
+            <totalSizeCap>5KB</totalSizeCap>
         </rollingPolicy>
 
 <!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
@@ -26,12 +26,17 @@
 <!--            &lt;!&ndash; delete old log files when total size of log files exceed 100MB&ndash;&gt;-->
 <!--            <totalSizeCap>100MB</totalSizeCap>-->
 <!--        </rollingPolicy>-->
+
         <encoder>
             <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <root level="info">
+<!--    <logger name="com.mkyong" level="debug" additivity="false">-->
+<!--        <appender-ref ref="CONSOLE"/>-->
+<!--    </logger>-->
+
+    <root name= "root" level="info">
         <appender-ref ref="Console" />
     </root>
 </configuration>

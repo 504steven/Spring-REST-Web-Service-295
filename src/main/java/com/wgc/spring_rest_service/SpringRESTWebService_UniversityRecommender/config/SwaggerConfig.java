@@ -37,7 +37,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Project : Design Your University")
+                .title("Project : Design Your College")
                 .description("CMPE 295 Project")
                 .version("v1.0")
                 .build();

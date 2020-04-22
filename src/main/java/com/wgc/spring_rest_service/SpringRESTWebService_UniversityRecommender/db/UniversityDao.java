@@ -1,20 +1,20 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.db;
 
-import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.University;
+import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.College;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class UniversityDao {
 
-    public boolean saveUniversity(University university) {
+    public boolean saveUniversity(College college) {
         return true;
     }
 
-    public boolean updateUniversity(University university) {
+    public boolean updateUniversity(College college) {
         return true;
     }
 
-    public University getUniversity(int universityId) {
+    public College getUniversity(int universityId) {
         return null;
     }
 }

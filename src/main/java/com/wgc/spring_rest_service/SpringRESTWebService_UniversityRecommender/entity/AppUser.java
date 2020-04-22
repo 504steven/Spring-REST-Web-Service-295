@@ -1,11 +1,20 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity;
 
-public class Student {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+public class AppUser extends User {
     private int userId;
-    private String email;
+    private String email;       // userdetails.User username
     private String password;
     private String firstName;
     private String lastName;
+    private List<String> roles = new ArrayList<>();
+
     private String gender;
     private String status;
     private String schoolName;
@@ -16,6 +25,14 @@ public class Student {
     private int SAT_math;
     private int SAT_verbal;
     private int expense_limit;
+
+    public AppUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, authorities);
+    }
+
+    public AppUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+    }
 
     public int getUserId() {
         return userId;
@@ -57,6 +74,12 @@ public class Student {
         this.lastName = lastName;
     }
 
+    public List<String> getRoles() {
+        return roles;
+    }
+
+
+    // student filed
     public String getGender() {
         return gender;
     }
@@ -128,4 +151,5 @@ public class Student {
     public void setExpense_limit(int expense_limit) {
         this.expense_limit = expense_limit;
     }
+
 }

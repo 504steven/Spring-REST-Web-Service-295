@@ -1,8 +1,8 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.controller;
 
 
-import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.db.StudentDao;
-import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.Student;
+import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.db.AppUserDao;
+import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/student")
 public class StudentController {
     @Autowired
-    private StudentDao studentDao;
+    private AppUserDao appUserDao;
 
     @GetMapping("/{id}")
-    public Student getStudentById(@PathVariable int id) {
-        return studentDao.getStudent(id);
+    public AppUser getStudentById(@PathVariable int id) {
+        return appUserDao.getStudent(id);
     }
 
-    public boolean addStudent(Student student) {
+    public boolean addStudent(AppUser appUser) {
         return true;
     }
 
-    public boolean updateStudent(Student student) {
+    public boolean updateStudent(AppUser appUser) {
         return true;
     }
 

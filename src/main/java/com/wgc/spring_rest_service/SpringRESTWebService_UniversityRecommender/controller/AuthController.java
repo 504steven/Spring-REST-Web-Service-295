@@ -1,13 +1,13 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.controller;
 
 
-import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.db.StudentDao;
+import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.db.AppUserDao;
+import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.AppUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @CrossOrigin("*")
@@ -15,18 +15,17 @@ public class AuthController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     
     @Autowired
-    private StudentDao studentDao;
-
+    private AppUserDao appUserDao;
 
     @PostMapping("/signup")
     public boolean signup(String username, String pswd) {
         return  true;
     }
 
-    @GetMapping("/login")
-    public boolean login(HttpServletRequest httpServletRequest) {
-        return  true;
-    }
+//    @GetMapping("/login")
+//    public AppUser login() {
+//        return  null;
+//    }
 
     @GetMapping("/logout")
     public boolean logout(String username) {
@@ -36,13 +35,13 @@ public class AuthController {
     @GetMapping("/testMySQL")
     public Object testMySQL() {
 //        logger.info("test API");
-        studentDao.saveStudentTest();
+        appUserDao.saveStudentTest();
         return null;
     }
 
     @GetMapping("/testMySQLTransaction")
     public Object testMySQLTransaction() {
-        studentDao.transactonTest();
+        appUserDao.transactonTest();
         return null;
     }
 

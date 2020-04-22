@@ -1,6 +1,6 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.db;
 
-import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.Student;
+import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,18 +9,18 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 
 @Repository
-public class StudentDao {
+public class AppUserDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public int saveStudent(Student s){
+    public int saveStudent(AppUser s){
         String sql = "INSERT INTO student (NAME, AGE, GENDER, SAT_MATH, SAT_VERBAL, EXPENSE_LIMIT) VALUES(?, ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql, s.getLastName(), s.getAge(), s.getGender(), s.getSAT_math(), s.getSAT_verbal(), s.getExpense_limit());
     }
 
-    public Student getStudent(int id){
+    public AppUser getStudent(int id){
         String sql = "SELECT * FROM student s WHERE s.id = ?";
-        return jdbcTemplate.queryForObject(sql, Student.class);
+        return jdbcTemplate.queryForObject(sql, AppUser.class);
     }
 
     public int saveStudentTest(){

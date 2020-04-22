@@ -1,18 +1,20 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.security.JWTVerificationFilter;
+import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.security.LoginFilter;
+import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.security.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
-@Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String SECRET = "cmpe295";
-    public static final long EXPIRATION_TIME = 864_000_0; // 10 days
+    public static final long EXPIRATION_TIME = 1200_000;  // unit: mill-second    // 86_400_000 : 1 day
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
 
@@ -27,24 +29,31 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             // other public endpoints of your API may be appended to this array
             "/signup",
-            "/login"
+//            "/login"
     };
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
+
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests()
-                .antMatchers(AUTH_WHITELIST).permitAll()
-                .antMatchers("/admin").hasRole("Role_Admin")
-                .anyRequest().hasAnyRole("Role_Admin", "Role_Student");
+        httpSecurity.cors().and().csrf().disable().authorizeRequests()
+//                .antMatchers(AUTH_WHITELIST).permitAll()
+//                .antMatchers("/admin").hasRole("Role_Admin")
+                .anyRequest()
+                .authenticated()
+//                .hasAnyRole("Role_Admin", "Role_Student")
+                .and()
+                .addFilter( new LoginFilter(authenticationManager()))
+                .addFilter(new JWTVerificationFilter( authenticationManager()))
+                .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
+        auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 }
+
+

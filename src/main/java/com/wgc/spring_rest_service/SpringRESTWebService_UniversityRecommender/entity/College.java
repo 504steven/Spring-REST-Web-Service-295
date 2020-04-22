@@ -1,7 +1,6 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity;
 
-
-public class University {
+public class College {
     private String name;   //def-instance
     private String state;
     private String control;

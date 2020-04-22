@@ -4,9 +4,9 @@ package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.d
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
+import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.College;
 import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.Survey;
 import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.SurveyResult;
-import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.University;
 import org.bson.Document;
 import org.springframework.stereotype.Repository;
 
@@ -29,43 +29,43 @@ public class MongoDBConnection {
     }
 
     // university CRUD
-    public List<University> findByState(String state) {
+    public List<College> findByState(String state) {
         FindIterable<Document> iterable = db.getCollection("university_data").find(eq("state", state));
         int i = 0;
-        List<University> res = new LinkedList<>();
+        List<College> res = new LinkedList<>();
         for(Document document: iterable) {
                 i++;
-                University university = new University();
-                university.setName(document.getString("name"));
-                university.setState(document.getString("state"));
-                university.setControl(document.getString("control"));
-                university.setLocation(document.getString("location"));
-                university.setPercent_admittance(document.getString("percent_admittance"));
-                university.setPercent_enrolled(document.getString("percent_enrolled"));
-                university.setNo_applicants(document.getString("no_applicants"));
-                university.setSat_verbal(document.getString("sat_verbal"));
-                university.setSat_math(document.getString("sat_math"));
-                university.setExpenses(document.getString("expenses"));
-                university.setPercent_financial_aid(document.getString("percent_financial_aid"));
-                university.setMale_female_ratio(document.getString("male_female_ratio"));
-                university.setAcademics_scale(document.getString("academics_scale"));
-                university.setSocial_scale(document.getString("social_scale"));
-                university.setQuality_of_life_scale(document.getString("quality_of_life_scale"));
-                res.add(university);
+                College college = new College();
+                college.setName(document.getString("name"));
+                college.setState(document.getString("state"));
+                college.setControl(document.getString("control"));
+                college.setLocation(document.getString("location"));
+                college.setPercent_admittance(document.getString("percent_admittance"));
+                college.setPercent_enrolled(document.getString("percent_enrolled"));
+                college.setNo_applicants(document.getString("no_applicants"));
+                college.setSat_verbal(document.getString("sat_verbal"));
+                college.setSat_math(document.getString("sat_math"));
+                college.setExpenses(document.getString("expenses"));
+                college.setPercent_financial_aid(document.getString("percent_financial_aid"));
+                college.setMale_female_ratio(document.getString("male_female_ratio"));
+                college.setAcademics_scale(document.getString("academics_scale"));
+                college.setSocial_scale(document.getString("social_scale"));
+                college.setQuality_of_life_scale(document.getString("quality_of_life_scale"));
+                res.add(college);
         };
         System.out.println("found university document size = " + i);
         return res;
     }
 
-    public University findUniversityByName( String name) {
+    public College findUniversityByName(String name) {
         return null;
     }
 
-    public boolean addUniversity( University university) {
+    public boolean addUniversity( College college) {
         return true;
     }
 
-    public boolean updateUniversity( University university) {
+    public boolean updateUniversity( College college) {
         return true;
     }
 
