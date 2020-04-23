@@ -13,25 +13,30 @@ public class AppUserDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public int saveStudent(AppUser s){
-        String sql = "INSERT INTO student (NAME, AGE, GENDER, SAT_MATH, SAT_VERBAL, EXPENSE_LIMIT) VALUES(?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, s.getLastName(), s.getAge(), s.getGender(), s.getSAT_math(), s.getSAT_verbal(), s.getExpense_limit());
+
+    public int saveAppUser(AppUser s){
+        String sql = "INSERT INTO app_user (EMAIL, PASSWORD, FIRSTNAME, LASTNAME, GENDER, AGE, STATUS, CURRENTID, SCHOOLNAME, GPA, SAT_MATH, SAT_VERBAL, EXPENSE_LIMIT) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        int res = jdbcTemplate.update(sql, s.getEmail(), s.getPassword(), s.getFirstName(), s.getLastName(), s.getGender(),
+                s.getAge(), s.getStatus(), s.getCurrentId(), s.getSchoolName(), s.getGpa(), s.getSAT_math(), s.getSAT_verbal(),
+                s.getExpense_limit());
+        return res;
     }
 
-    public AppUser getStudent(int id){
-        String sql = "SELECT * FROM student s WHERE s.id = ?";
-        return jdbcTemplate.queryForObject(sql, AppUser.class);
+    public AppUser getAppUserById(int userId){
+        String sql = "SELECT * FROM app_user WHERE userId = ?";
+        return jdbcTemplate.queryForObject(sql, AppUser.class, userId);
     }
 
-    public int saveStudentTest(){
-        String sql = "INSERT INTO student (NAME, AGE, GENDER, SAT_MATH, SAT_VERBAL, EXPENSE_LIMIT) VALUES(\"xxx22\", 222, \"sex\", 0, 0, 0)";
-        return jdbcTemplate.update(sql);
+    public AppUser getAppUserByEmail(String email){
+        String sql = "SELECT * FROM app_user WHERE email = ?";
+        return jdbcTemplate.queryForObject(sql, AppUser.class, email);
     }
 
     @Transactional
     public void transactonTest() {
-        String sql ="INSERT INTO student (NAME, AGE, GENDER, SAT_MATH, SAT_VERBAL, EXPENSE_LIMIT) VALUES(\"xxx111\", 111, \"sex\", 0, 0, 0)";
-        jdbcTemplate.update(sql);
-        throw new DataAccessException("created exception!") {};
+//        String sql ="INSERT INTO student (NAME, AGE, GENDER, SAT_MATH, SAT_VERBAL, EXPENSE_LIMIT) VALUES(\"xxx111\", 111, \"sex\", 0, 0, 0)";
+//        jdbcTemplate.update(sql);
+//        throw new DataAccessException("created exception!") {};
     }
 }

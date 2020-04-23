@@ -21,7 +21,7 @@ public class SpringAppConfig {
         // dbcp connection pool
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/designyouruniveristy");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/designyourcollege");
         dataSource.setUsername("root");
         dataSource.setPassword("root");
         return dataSource;

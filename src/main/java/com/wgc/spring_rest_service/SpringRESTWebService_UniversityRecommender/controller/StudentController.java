@@ -15,7 +15,7 @@ public class StudentController {
 
     @GetMapping("/{id}")
     public AppUser getStudentById(@PathVariable int id) {
-        return appUserDao.getStudent(id);
+        return appUserDao.getAppUserById(id);
     }
 
     public boolean addStudent(AppUser appUser) {

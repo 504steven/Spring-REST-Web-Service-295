@@ -29,7 +29,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             // other public endpoints of your API may be appended to this array
             "/signup",
-//            "/login"
+            "/login"
     };
 
     @Autowired
@@ -39,13 +39,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable().authorizeRequests()
-//                .antMatchers(AUTH_WHITELIST).permitAll()
-//                .antMatchers("/admin").hasRole("Role_Admin")
+                .antMatchers(AUTH_WHITELIST).permitAll()
+                .antMatchers("/admin").hasRole("Admin")
                 .anyRequest()
                 .authenticated()
 //                .hasAnyRole("Role_Admin", "Role_Student")
                 .and()
-                .addFilter( new LoginFilter(authenticationManager()))
+//                .addFilter( new LoginFilter(authenticationManager()))
                 .addFilter(new JWTVerificationFilter( authenticationManager()))
                 .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS);
     }

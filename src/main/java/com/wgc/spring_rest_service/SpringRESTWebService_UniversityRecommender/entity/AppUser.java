@@ -1,9 +1,6 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class AppUser{
@@ -25,7 +22,7 @@ public class AppUser{
     private int SAT_verbal;
     private int expense_limit;
 
-    
+
     public int getUserId() {
         return userId;
     }

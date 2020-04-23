@@ -45,15 +45,16 @@ public class MySQLTableCreation {
             Statement stmt = conn.createStatement();
 
             //Create app_uer tables.
+            // auto column must be defined as a key
             String sql = "CREATE TABLE app_user " + "(userId INT unsigned AUTO_INCREMENT, " + " email VARCHAR(255) NOT NULL, " + " password VARCHAR(255) NOT NULL, "
                         + " lastName VARCHAR(255) NOT NULL, " + " firstName VARCHAR(255) NOT NULL, " + "gender VARCHAR(255), " + "status VARCHAR(255), "
                         + "currentID VARCHAR(255), " + "schoolName VARCHAR(255), "
                         + "age INT UNSIGNED, " + "gpa DECIMAL(3,2), " + "SAT_math INT UNSIGNED, " + "SAT_verbal INT UNSIGNED, " + "expense_limit INT UNSIGNED, "
-                        + " PRIMARY KEY (userId), " + " INDEX (email))";
+                        + " PRIMARY KEY (userId), " + "UNIQUE (email), " + " INDEX (email))";
             stmt.executeUpdate(sql);
 
             //Create role tables.
-            sql = "CREATE TABLE role " + "(userId INT unsigned, " + " role VARCHAR(255) NOT NULL, " + " FOREIGN KEY (userId) REFERENCES app_user( userId), " + " INDEX (userId), " + " INDEX (role))";
+            sql = "CREATE TABLE role " + "(userId INT unsigned, " + " role VARCHAR(255) NOT NULL, " + " FOREIGN KEY (userId) REFERENCES app_user( userId), " + " UNIQUE (userId, role), "+ " INDEX (userId), " + " INDEX (role))";
             stmt.executeUpdate(sql);
 
             // insert dummy data
