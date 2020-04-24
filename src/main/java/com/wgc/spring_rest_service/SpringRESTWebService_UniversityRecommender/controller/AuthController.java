@@ -5,9 +5,8 @@ import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.db
 import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.AppUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,10 +20,12 @@ public class AuthController {
     private AppUserDao appUserDao;
 
     @PostMapping("/signup")
-    public ResponseEntity<String>  signup(@RequestBody AppUser appUser) {
-        appUserDao.saveAppUser(appUser);
-        logger.info("User：" + appUser.getEmail() + " signed up successfully.");
-        return new ResponseEntity(HttpStatus.OK);
+    public void  signup(@RequestBody AppUser appUser) {
+        logger.info("User-{} is trying to sign up...",appUser.getEmail());
+        MDC.put("email", appUser.getEmail());
+//        appUserDao.saveAppUser(appUser);
+        logger.info("User-{} signed up successfully.", appUser.getEmail() );
+        MDC.clear();
     }
 
     @PostMapping("/login")
@@ -35,14 +36,6 @@ public class AuthController {
     @GetMapping("/logout")
     public boolean logout(String username) {
         return true;
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String>  handle(Exception e) {
-        e.getClass();
-
-        logger.error(e.getMessage());
-        return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR );
     }
 
     @GetMapping("/testMySQLTransaction")

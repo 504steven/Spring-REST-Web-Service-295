@@ -2,19 +2,19 @@
     <property name="LOG_DIR" value="./log" />
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern> %red(%d{HH:mm:ss.SSS}) [%thread] %highlight(%-5level) %logger{36} - %msg%n</pattern>
+            <pattern> %red(%d{HH:mm:ss.SSS}) %X{email} [%thread] %highlight(%-5level) %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
     <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_DIR}/College_Recommender-log.txt</file>
+<!--        <file>${LOG_DIR}/College_Recommender-log.txt</file>-->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- rollover daily -->
             <fileNamePattern>${LOG_DIR}/College_Recommender-log-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
             <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
-            <maxFileSize>1KB</maxFileSize>
+            <maxFileSize>10KB</maxFileSize>
             <maxHistory>2</maxHistory>
-            <totalSizeCap>5KB</totalSizeCap>
+            <totalSizeCap>50KB</totalSizeCap>
         </rollingPolicy>
 
 <!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
@@ -28,7 +28,7 @@
 <!--        </rollingPolicy>-->
 
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level- %logger{35} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} User-%X{email} [%thread] %-5level- %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
 
