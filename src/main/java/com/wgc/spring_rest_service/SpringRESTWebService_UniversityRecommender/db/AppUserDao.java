@@ -2,35 +2,57 @@ package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.d
 
 import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class AppUserDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    private AppUserRowMapper appUserRowMapper = new AppUserRowMapper();
 
-    public int saveAppUser(AppUser s){
+
+    public int saveAppUser(AppUser appUser){
+        List<String> roles = appUser.getRoles();
+        if(roles.isEmpty()) {
+            roles.add("Student");
+        }
         String sql = "INSERT INTO app_user (EMAIL, PASSWORD, FIRSTNAME, LASTNAME, GENDER, AGE, STATUS, CURRENTID, SCHOOLNAME, GPA, SAT_MATH, SAT_VERBAL, EXPENSE_LIMIT) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        int res = jdbcTemplate.update(sql, s.getEmail(), s.getPassword(), s.getFirstName(), s.getLastName(), s.getGender(),
-                s.getAge(), s.getStatus(), s.getCurrentId(), s.getSchoolName(), s.getGpa(), s.getSAT_math(), s.getSAT_verbal(),
-                s.getExpense_limit());
+        int res = jdbcTemplate.update(sql, appUser.getEmail(), appUser.getPassword(), appUser.getFirstName(), appUser.getLastName(), appUser.getGender(),
+                appUser.getAge(), appUser.getStatus(), appUser.getCurrentId(), appUser.getSchoolName(), appUser.getGpa(), appUser.getSAT_math(), appUser.getSAT_verbal(),
+                appUser.getExpense_limit());
+        int userId = jdbcTemplate.queryForObject("SELECT userId FROM app_user WHERE email = ? ", Integer.class, appUser.getEmail());
+        for(String role : appUser.getRoles()) {
+            sql = "INSERT INTO role VALUES (?, ?)";
+            jdbcTemplate.update(sql, userId, role);
+        }
         return res;
     }
 
     public AppUser getAppUserById(int userId){
         String sql = "SELECT * FROM app_user WHERE userId = ?";
-        return jdbcTemplate.queryForObject(sql, AppUser.class, userId);
+        AppUser appUser = jdbcTemplate.queryForObject(sql, appUserRowMapper, userId);
+        sql = "SELECT role FROM role WHERE userId = ?";
+        List<String> roles = jdbcTemplate.queryForList(sql, String.class, userId);
+        appUser.setRoles(roles);
+        return appUser;
     }
 
     public AppUser getAppUserByEmail(String email){
         String sql = "SELECT * FROM app_user WHERE email = ?";
-        return jdbcTemplate.queryForObject(sql, AppUser.class, email);
+        AppUser appUser = jdbcTemplate.queryForObject(sql, appUserRowMapper, email);
+        sql = "SELECT role FROM role WHERE userId = ?";
+        List<String> roles = jdbcTemplate.queryForList(sql, String.class, appUser.getUserId());
+        appUser.setRoles(roles);
+        return appUser;
     }
 
     @Transactional
@@ -38,5 +60,28 @@ public class AppUserDao {
 //        String sql ="INSERT INTO student (NAME, AGE, GENDER, SAT_MATH, SAT_VERBAL, EXPENSE_LIMIT) VALUES(\"xxx111\", 111, \"sex\", 0, 0, 0)";
 //        jdbcTemplate.update(sql);
 //        throw new DataAccessException("created exception!") {};
+    }
+
+}
+
+class AppUserRowMapper implements RowMapper<AppUser> {
+    @Override
+    public AppUser mapRow(ResultSet resultSet, int i) throws SQLException {
+        AppUser appUser = new AppUser();
+        appUser.setUserId( resultSet.getInt("userId"));
+        appUser.setEmail( resultSet.getString("email"));
+        appUser.setPassword( resultSet.getString("password"));
+        appUser.setFirstName( resultSet.getString("firstname"));
+        appUser.setLastName( resultSet.getString("lastname"));
+        appUser.setGender( resultSet.getString("gender"));
+        appUser.setAge( resultSet.getInt("age"));
+        appUser.setStatus( resultSet.getString("status"));
+        appUser.setCurrentId( resultSet.getString("currentId"));
+        appUser.setSchoolName( resultSet.getString("schoolname"));
+        appUser.setGpa( resultSet.getDouble("gpa"));
+        appUser.setSAT_math( resultSet.getInt("SAT_math"));
+        appUser.setSAT_verbal( resultSet.getInt("SAT_verbal"));
+        appUser.setExpense_limit( resultSet.getInt("expense_limit"));
+        return appUser;
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-
 @Configuration
 @PropertySource("application.properties")
 @EnableTransactionManagement

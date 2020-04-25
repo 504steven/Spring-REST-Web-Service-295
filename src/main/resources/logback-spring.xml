@@ -28,7 +28,7 @@
 <!--        </rollingPolicy>-->
 
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} User-%X{email} [%thread] %-5level- %logger{35} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} %X{email} [%thread] %-5level- %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
 

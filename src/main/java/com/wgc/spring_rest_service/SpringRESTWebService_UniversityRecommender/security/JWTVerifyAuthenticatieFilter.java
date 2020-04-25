@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class JWTVerificationFilter extends BasicAuthenticationFilter {
+public class JWTVerifyAuthenticatieFilter extends BasicAuthenticationFilter {
 
-    public JWTVerificationFilter(AuthenticationManager authManager) {
+    public JWTVerifyAuthenticatieFilter(AuthenticationManager authManager) {
         super(authManager);
     }
 
@@ -22,7 +22,8 @@ public class JWTVerificationFilter extends BasicAuthenticationFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         String authorizationHeader = httpServletRequest.getHeader( SpringSecurityConfig.HEADER_STRING);
         if(authorizationHeader != null && authorizationHeader.startsWith( SpringSecurityConfig.TOKEN_PREFIX)) {
-            SecurityContextHolder.getContext().setAuthentication( JWTUtil.verify( authorizationHeader.replace( SpringSecurityConfig.TOKEN_PREFIX, "")));
+            // this set Authentication to be a new one. So if the new one's authenticated = true, then it passes
+            SecurityContextHolder.getContext().setAuthentication( JWTUtil.verifyAuthenticate( authorizationHeader.replace( SpringSecurityConfig.TOKEN_PREFIX, "")));
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }

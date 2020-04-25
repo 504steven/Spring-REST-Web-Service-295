@@ -14,10 +14,10 @@ public class AppUser{
     private String gender;
     private String status;
     private String schoolName;
-    // school id number
-    private int currentId;
+    // school id
+    private String currentId;
     private int age;
-    private int gpa;
+    private double gpa;
     private int SAT_math;
     private int SAT_verbal;
     private int expense_limit;
@@ -63,6 +63,9 @@ public class AppUser{
         this.lastName = lastName;
     }
 
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
     public List<String> getRoles() {
         return roles;
     }
@@ -93,11 +96,11 @@ public class AppUser{
         this.schoolName = schoolName;
     }
 
-    public int getCurrentId() {
+    public String getCurrentId() {
         return currentId;
     }
 
-    public void setCurrentId(int currentId) {
+    public void setCurrentId(String currentId) {
         this.currentId = currentId;
     }
 
@@ -109,11 +112,11 @@ public class AppUser{
         this.age = age;
     }
 
-    public int getGpa() {
+    public double getGpa() {
         return gpa;
     }
 
-    public void setGpa(int gpa) {
+    public void setGpa(double gpa) {
         this.gpa = gpa;
     }
 
