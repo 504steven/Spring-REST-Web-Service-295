@@ -1,6 +1,6 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.config;
 
-import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.security.JWTVerifyAuthenticatieFilter;
+import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.security.JWTAuthenticateFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,10 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
-    public static final String SECRET = "cmpe295";
-    public static final long EXPIRATION_TIME = 1200_0000;  // unit: mill-second    // 86_400_000 : 1 day
-    public static final String TOKEN_PREFIX = "Bearer ";
-    public static final String HEADER_STRING = "Authorization";
 
     private static final String[] AUTH_WHITELIST = {
             // -- swagger ui
@@ -43,17 +39,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers("/user/admin").hasRole("Admin")
                 .anyRequest()
-                .authenticated()
-//                .hasAnyRole("Role_Admin", "Role_Student")
+//                .authenticated()      //  hasRole() or authenticated)(
+                .hasAnyRole("Admin", "Student")
                 .and()
 //                .addFilter( new LoginFilter(authenticationManager()))
-                .addFilter(new JWTVerifyAuthenticatieFilter( authenticationManager()))
+                .addFilter(new JWTAuthenticateFilter( authenticationManager()))
                 .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS);
     }
 
-        // Do not need "configure(AuthenticationManagerBuilder"
-        // "/login" is do authentication with my own code
-        // "JWTVerifyAuthentication" does not use UserDetailService to atuhenticate
+        // used for LoginFilter to do authentication
 //        @Override
 //        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //            auth.userDetailsService(userDetailsServiceImpl).passwordEncoder( bCryptPasswordEncoder);
