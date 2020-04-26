@@ -9,7 +9,6 @@ import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/user")
-public class AuthController {
-    private Logger logger = LoggerFactory.getLogger(AuthController.class);
+public class UserController {
+    private Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -59,14 +58,23 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public boolean logout(HttpServletRequest httpServletRequest, AppUser appUser) {
+    public void logout(HttpServletRequest httpServletRequest, @RequestBody AppUser appUser) {
         MDC.put("email", "User-" + appUser.getEmail());
         logger.info("User is trying to logout...");
         String authorizationHeader = httpServletRequest.getHeader( JWTUtil.HEADER_STRING);
         JWTUtil.invalidToken( authorizationHeader.replace( JWTUtil.TOKEN_PREFIX, ""));
         logger.warn("User logged out successfully");
         MDC.clear();
-        return true;
+    }
+
+    @PutMapping("/profile")
+    public void update(@RequestBody AppUser appUser) {
+        MDC.put("email", "User-" + appUser.getEmail());
+        logger.info("User is trying to update profile...");
+        appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
+        appUserDao.updateAppUser(appUser);
+        logger.warn("User updated profile successfully.");
+        MDC.clear();
     }
 
     @GetMapping("/admin")

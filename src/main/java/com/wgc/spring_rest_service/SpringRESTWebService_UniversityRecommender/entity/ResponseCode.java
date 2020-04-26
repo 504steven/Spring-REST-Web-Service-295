@@ -1,5 +1,7 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity;
 
+// !!!!!! Can be, but not used in the proj
+// used as ResponseBody
 public class ResponseCode {
     private Long code;
     private String msg;

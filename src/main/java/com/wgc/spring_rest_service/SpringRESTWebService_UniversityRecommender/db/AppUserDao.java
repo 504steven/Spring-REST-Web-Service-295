@@ -55,12 +55,22 @@ public class AppUserDao {
         return appUser;
     }
 
+    public int updateAppUser(AppUser appUser) {
+        String sql = "UPDATE app_user SET email = ?, password = ?, firstname = ?, lastname = ?, gender = ?, age = ?, status = ?, currentid = ?, schoolname = ?, gpa = ?, sat_math = ?, sat_verbal = ?, expense_limit = ? " +
+                        " WHERE userId = ? ";
+        int res = jdbcTemplate.update(sql, appUser.getEmail(), appUser.getPassword(), appUser.getFirstName(), appUser.getLastName(), appUser.getGender(),
+                   appUser.getAge(), appUser.getStatus(), appUser.getCurrentId(), appUser.getSchoolName(), appUser.getGpa(), appUser.getSAT_math(), appUser.getSAT_verbal(),
+                    appUser.getExpense_limit(), appUser.getUserId());
+        return res;
+    }
+
     @Transactional
     public void transactonTest() {
 //        String sql ="INSERT INTO student (NAME, AGE, GENDER, SAT_MATH, SAT_VERBAL, EXPENSE_LIMIT) VALUES(\"xxx111\", 111, \"sex\", 0, 0, 0)";
 //        jdbcTemplate.update(sql);
 //        throw new DataAccessException("created exception!") {};
     }
+
 
 }
 
