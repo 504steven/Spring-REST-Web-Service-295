@@ -16,6 +16,7 @@ public class ExceptionHandle  {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handle(Exception e) {
                                                 // HttpStatus.BAD_REQUEST
+        logger.error(e.getMessage(), e);
         return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR );
     }
 }

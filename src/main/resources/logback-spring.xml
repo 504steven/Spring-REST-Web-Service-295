@@ -2,7 +2,7 @@
     <property name="LOG_DIR" value="./log" />
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern> %red(%d{HH:mm:ss.SSS}) %X{email} [%thread] %highlight(%-5level) %logger{36} - %msg%n</pattern>
+            <pattern> %red(%d{HH:mm:ss.SSS}) %X{userInfo} [%thread] %highlight(%-5level) %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 

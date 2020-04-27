@@ -29,9 +29,9 @@ public class UserController {
     private AppUserDao appUserDao;
 
     @PostMapping("/signup")
-    public void  signup(@RequestBody AppUser appUser) {
-        MDC.put("email", "User-" + appUser.getEmail());
-        logger.info("User is trying to sign up...");
+    public void  signup(HttpServletRequest req, @RequestBody AppUser appUser) {
+        MDC.put("userInfo", "User-" + appUser.getEmail());
+        logger.info(req.getRequestURI() + ": User is trying to sign up...");
         appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
         appUserDao.saveAppUser(appUser);
         logger.info("User signed up successfully.");
@@ -39,41 +39,43 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AppUser> login(HttpServletResponse response, @RequestBody AppUser appUser) {
-        MDC.put("email", "User-" + appUser.getEmail());
-        logger.info("User is trying to login...");
+    public ResponseEntity<AppUser> login(HttpServletRequest req, HttpServletResponse response, @RequestBody AppUser appUser) {
+        MDC.put("userInfo", "User-" + appUser.getEmail());
+        logger.info( req.getRequestURI() + ": User is trying to login...");
         AppUser appUserOnDB = appUserDao.getAppUserByEmail(appUser.getEmail());
         boolean validation = bCryptPasswordEncoder.matches(appUser.getPassword(), appUserOnDB.getPassword());
-        appUserOnDB.setPassword(null);
+//        appUserOnDB.setPassword(null);
         if(validation) {
             response.addHeader( JWTUtil.HEADER_STRING, JWTUtil.TOKEN_PREFIX + JWTUtil.createTokenOnAppUser(appUserOnDB));
             logger.info("User logged in successfully.");
             MDC.clear();
             return new ResponseEntity<>(appUserOnDB, HttpStatus.OK);
         }else {
-            logger.warn("User logged in failed, wrong email-password.");
+            logger.info("User logged in failed, wrong username(email)-password.");
             MDC.clear();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/logout")
-    public void logout(HttpServletRequest httpServletRequest, @RequestBody AppUser appUser) {
-        MDC.put("email", "User-" + appUser.getEmail());
-        logger.info("User is trying to logout...");
+    public void logout(HttpServletRequest req, HttpServletRequest httpServletRequest, @RequestBody AppUser appUser) {
+        MDC.put("userInfo", "User Id-" + appUser.getUserId());
+        logger.info( req.getRequestURI() + ": User is trying to logout...");
+        JWTUtil.verifyJWTwithUserId(req, appUser.getUserId());
         String authorizationHeader = httpServletRequest.getHeader( JWTUtil.HEADER_STRING);
         JWTUtil.invalidToken( authorizationHeader.replace( JWTUtil.TOKEN_PREFIX, ""));
-        logger.warn("User logged out successfully");
+        logger.info("User logged out successfully");
         MDC.clear();
     }
 
     @PutMapping("/profile")
-    public void update(@RequestBody AppUser appUser) {
-        MDC.put("email", "User-" + appUser.getEmail());
-        logger.info("User is trying to update profile...");
+    public void update(HttpServletRequest req,  @RequestBody AppUser appUser) {
+        MDC.put("userInfo", "User Id-" + appUser.getUserId());
+        logger.info(req.getRequestURI() + ": User is trying to update profile...");
+        JWTUtil.verifyJWTwithUserId(req, appUser.getUserId());
         appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
         appUserDao.updateAppUser(appUser);
-        logger.warn("User updated profile successfully.");
+        logger.info("User updated profile successfully.");
         MDC.clear();
     }
 
