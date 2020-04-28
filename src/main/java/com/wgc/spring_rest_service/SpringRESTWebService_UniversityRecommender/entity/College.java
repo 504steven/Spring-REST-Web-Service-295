@@ -1,5 +1,8 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel
 public class College {
     private String name;   //def-instance
     private String state;

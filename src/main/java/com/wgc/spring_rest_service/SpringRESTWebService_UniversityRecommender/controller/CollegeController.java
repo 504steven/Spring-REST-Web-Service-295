@@ -1,15 +1,24 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.controller;
 
 import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.College;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
 
+@Api
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/university")
 public class CollegeController {
+
+    @ApiOperation(value = "find all college objets whose name include the keyword")
+    @GetMapping()
+    public List<College> findUniversityByName(@PathParam("keyword") String universityName) {
+        return null;
+    }
 
     @GetMapping("/FilteredUniversity")
     public List<College>  getFilteredUniversityInfo(@RequestParam String state, @RequestParam String control, @RequestParam String sat_verbal, @RequestParam String sat_math, @RequestParam String expenses) {
@@ -39,10 +48,7 @@ public class CollegeController {
         return  null;
     }
 
-    @GetMapping()
-    public List<College> findUniversityByName(@PathParam("keyword") String universityName) {
-        return null;
-    }
+
 
     public College getUniversityById(int id) {
         return null;

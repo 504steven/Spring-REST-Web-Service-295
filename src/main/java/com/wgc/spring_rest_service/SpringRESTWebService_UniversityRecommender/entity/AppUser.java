@@ -1,8 +1,11 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity;
 
+import io.swagger.annotations.ApiModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@ApiModel
 public class AppUser{
     private int userId;
     private String email;       // userdetails.User username
