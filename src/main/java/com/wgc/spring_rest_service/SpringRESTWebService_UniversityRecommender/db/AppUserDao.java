@@ -24,10 +24,10 @@ public class AppUserDao {
         if(roles.isEmpty()) {
             roles.add("Student");
         }
-        String sql = "INSERT INTO app_user (EMAIL, PASSWORD, FIRSTNAME, LASTNAME, GENDER, AGE, STATUS, CURRENTID, SCHOOLNAME, GPA, SAT_MATH, SAT_VERBAL, EXPENSE_LIMIT) " +
+        String sql = "INSERT INTO app_user (EMAIL, PASSWORD, FIRSTNAME, LASTNAME, GENDER, AGE, STATUS, CURRENTID, SCHOOLNAME, GPA, SAT_MATH, SAT_reading, SAT_writing, ACT, EXPENSE_LIMIT) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         int res = jdbcTemplate.update(sql, appUser.getEmail(), appUser.getPassword(), appUser.getFirstName(), appUser.getLastName(), appUser.getGender(),
-                appUser.getAge(), appUser.getStatus(), appUser.getCurrentId(), appUser.getSchoolName(), appUser.getGpa(), appUser.getSAT_math(), appUser.getSAT_verbal(),
+                appUser.getAge(), appUser.getStatus(), appUser.getCurrentId(), appUser.getSchoolName(), appUser.getGpa(), appUser.getSAT_math(), appUser.getSAT_reading(), appUser.getSAT_wrting(), appUser.getACT(),
                 appUser.getExpense_limit());
         int userId = jdbcTemplate.queryForObject("SELECT userId FROM app_user WHERE email = ? ", Integer.class, appUser.getEmail());
         for(String role : appUser.getRoles()) {
@@ -56,10 +56,10 @@ public class AppUserDao {
     }
 
     public int updateAppUser(AppUser appUser) {
-        String sql = "UPDATE app_user SET email = ?, password = ?, firstname = ?, lastname = ?, gender = ?, age = ?, status = ?, currentid = ?, schoolname = ?, gpa = ?, sat_math = ?, sat_verbal = ?, expense_limit = ? " +
+        String sql = "UPDATE app_user SET email = ?, password = ?, firstname = ?, lastname = ?, gender = ?, age = ?, status = ?, currentid = ?, schoolname = ?, gpa = ?, sat_math = ?, SAT_reading = ?, SAT_writing = ?, ACT = ?, expense_limit = ? " +
                         " WHERE userId = ? ";
         int res = jdbcTemplate.update(sql, appUser.getEmail(), appUser.getPassword(), appUser.getFirstName(), appUser.getLastName(), appUser.getGender(),
-                   appUser.getAge(), appUser.getStatus(), appUser.getCurrentId(), appUser.getSchoolName(), appUser.getGpa(), appUser.getSAT_math(), appUser.getSAT_verbal(),
+                   appUser.getAge(), appUser.getStatus(), appUser.getCurrentId(), appUser.getSchoolName(), appUser.getGpa(), appUser.getSAT_math(), appUser.getSAT_reading(), appUser.getSAT_wrting(), appUser.getACT(),
                     appUser.getExpense_limit(), appUser.getUserId());
         return res;
     }
@@ -90,7 +90,9 @@ class AppUserRowMapper implements RowMapper<AppUser> {
         appUser.setSchoolName( resultSet.getString("schoolname"));
         appUser.setGpa( resultSet.getDouble("gpa"));
         appUser.setSAT_math( resultSet.getInt("SAT_math"));
-        appUser.setSAT_verbal( resultSet.getInt("SAT_verbal"));
+        appUser.setSAT_reading( resultSet.getInt("SAT_reading"));
+        appUser.setSAT_wrting( resultSet.getInt("SAT_writing"));
+        appUser.setACT( resultSet.getInt("ACT"));
         appUser.setExpense_limit( resultSet.getInt("expense_limit"));
         return appUser;
     }

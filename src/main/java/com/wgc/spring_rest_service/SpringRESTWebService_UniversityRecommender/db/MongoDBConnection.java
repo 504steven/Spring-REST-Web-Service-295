@@ -8,6 +8,7 @@ import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.en
 import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.Survey;
 import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.SurveyResult;
 import org.bson.Document;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.LinkedList;

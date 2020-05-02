@@ -5,15 +5,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 // !!!!!! Can be, but not used in the proj
 //@ControllerAdvice
-public class ExceptionHandle  {
-    private static Logger logger = LoggerFactory.getLogger(ExceptionHandle.class);
+public class ExceptionHandler {
+    private static Logger logger = LoggerFactory.getLogger(ExceptionHandler.class);
 
-    @ExceptionHandler(Exception.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
     public ResponseEntity<String> handle(Exception e) {
                                                 // HttpStatus.BAD_REQUEST
         logger.error(e.getMessage(), e);

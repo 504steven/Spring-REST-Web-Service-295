@@ -22,7 +22,9 @@ public class AppUser{
     private int age;
     private double gpa;
     private int SAT_math;
-    private int SAT_verbal;
+    private int SAT_wrting;
+    private int SAT_reading;
+    private int ACT;
     private int expense_limit;
 
 
@@ -131,12 +133,28 @@ public class AppUser{
         this.SAT_math = SAT_math;
     }
 
-    public int getSAT_verbal() {
-        return SAT_verbal;
+    public int getSAT_wrting() {
+        return SAT_wrting;
     }
 
-    public void setSAT_verbal(int SAT_verbal) {
-        this.SAT_verbal = SAT_verbal;
+    public void setSAT_wrting(int SAT_wrting) {
+        this.SAT_wrting = SAT_wrting;
+    }
+
+    public int getSAT_reading() {
+        return SAT_reading;
+    }
+
+    public void setSAT_reading(int SAT_reading) {
+        this.SAT_reading = SAT_reading;
+    }
+
+    public int getACT() {
+        return ACT;
+    }
+
+    public void setACT(int ACT) {
+        this.ACT = ACT;
     }
 
     public int getExpense_limit() {

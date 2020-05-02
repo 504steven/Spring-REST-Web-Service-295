@@ -49,7 +49,7 @@ public class MySQLTableCreation {
             String sql = "CREATE TABLE app_user " + "(userId INT unsigned AUTO_INCREMENT, " + " email VARCHAR(255) NOT NULL, " + " password VARCHAR(255) NOT NULL, "
                         + " lastName VARCHAR(255) NOT NULL, " + " firstName VARCHAR(255) NOT NULL, " + "gender VARCHAR(255), " + "status VARCHAR(255), "
                         + "currentId VARCHAR(255), " + "schoolName VARCHAR(255), "
-                        + "age INT UNSIGNED, " + "gpa DECIMAL(3,2), " + "SAT_math INT UNSIGNED, " + "SAT_verbal INT UNSIGNED, " + "expense_limit INT UNSIGNED, "
+                        + "age INT UNSIGNED, " + "gpa DECIMAL(3,2), " + "SAT_math INT UNSIGNED, " + "SAT_reading INT UNSIGNED, " + "SAT_writingINT UNSIGNED, " + "ACT INT UNSIGNED, " + "expense_limit INT UNSIGNED, "
                         + " PRIMARY KEY (userId), " + "UNIQUE (email), " + " INDEX (email))";
             stmt.executeUpdate(sql);
 

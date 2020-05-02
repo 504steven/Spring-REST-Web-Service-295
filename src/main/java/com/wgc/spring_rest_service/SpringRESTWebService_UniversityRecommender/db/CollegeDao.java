@@ -3,18 +3,24 @@ package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.d
 import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.College;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class CollegeDao {
 
-    public boolean saveUniversity(College college) {
+    public boolean saveCollege(College college) {
         return true;
     }
 
-    public boolean updateUniversity(College college) {
+    public boolean updateCollege(College college) {
         return true;
     }
 
-    public College getUniversity(int universityId) {
+    public List<College> getCollegeList(List<Integer> collegeIdList) {
+        return null;
+    }
+
+    public College getCollege(int collegeId) {
         return null;
     }
 }

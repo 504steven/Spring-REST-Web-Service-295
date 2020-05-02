@@ -1,5 +1,7 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.config;
 
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +32,16 @@ public class SpringAppConfig {
     public JdbcTemplate getJdbcTemplate() {
         return new JdbcTemplate(getMysqlDataSource());
     }
+
+    @Bean
+    public MongoDatabase getMongoDatabase() {
+        String IP = "localhost";
+        int PORT = 27017;
+        String DB_NAME = "designyourcollege";
+
+        return new MongoClient(IP, PORT).getDatabase( DB_NAME);
+    }
+
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
