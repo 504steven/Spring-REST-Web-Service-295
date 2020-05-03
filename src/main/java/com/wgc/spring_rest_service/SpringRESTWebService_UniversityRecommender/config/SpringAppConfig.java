@@ -33,14 +33,14 @@ public class SpringAppConfig {
         return new JdbcTemplate(getMysqlDataSource());
     }
 
-    @Bean
-    public MongoDatabase getMongoDatabase() {
-        String IP = "localhost";
-        int PORT = 27017;
-        String DB_NAME = "designyourcollege";
-
-        return new MongoClient(IP, PORT).getDatabase( DB_NAME);
-    }
+//    @Bean
+//    public MongoDatabase getMongoDatabase() {
+//        String IP = "localhost";
+//        int PORT = 27017;
+//        String DB_NAME = "designyourcollege";
+//
+//        return new MongoClient(IP, PORT).getDatabase( DB_NAME);
+//    }
 
 
     @Bean

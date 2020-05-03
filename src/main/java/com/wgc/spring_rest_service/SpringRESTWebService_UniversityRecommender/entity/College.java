@@ -4,21 +4,43 @@ import io.swagger.annotations.ApiModel;
 
 @ApiModel
 public class College {
-    private String name;   //def-instance
+    private int id;
+    private String name;
+    private double lat;
+    private double lon;
     private String state;
     private String control;
-    private String location;
-    private String percent_admittance;
-    private String percent_enrolled;
-    private String no_applicants;
-    private String sat_verbal;
-    private String sat_math;
-    private String expenses;    // per semester
-    private String percent_financial_aid;
-    private String male_female_ratio;
-    private String academics_scale;   // 1-5
-    private String social_scale; //1-5
-    private String quality_of_life_scale; //1-5
+    private String urbanization;
+    private String religious_affiliation;
+    private boolean offers_associate_degree;
+    private boolean offers_bachelor_degree;
+    private boolean offers_master_degree;
+    private boolean offers_doctor_degree_research_scholarship;
+    private boolean offers_doctor_degree_professional_practice;
+    private int applicants_total;
+    private int admissions_total;
+    private int enrolled_total;
+    private int percent_admitted_total;
+    private int total_enrollment;
+    private int undergraduate_total_enrollment;
+    private int graduate_total_enrollment;
+    private int tuition_and_fees;
+    private int sat_reading_25th_percentile_score;
+    private int sat_reading_75th_percentile_score;
+    private int sat_math_25th_percentile_score;
+    private int sat_math_75th_percentile_score;
+    private int sat_writing_25th_percentile_score;
+    private int sat_writing_75th_percentile_score;
+    private int act_25th_percentile_score;
+    private int act_75th_percentile_score;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -26,6 +48,22 @@ public class College {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 
     public String getState() {
@@ -44,99 +82,187 @@ public class College {
         this.control = control;
     }
 
-    public String getLocation() {
-        return location;
+    public String getUrbanization() {
+        return urbanization;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setUrbanization(String urbanization) {
+        this.urbanization = urbanization;
     }
 
-    public String getPercent_admittance() {
-        return percent_admittance;
+    public String getReligious_affiliation() {
+        return religious_affiliation;
     }
 
-    public void setPercent_admittance(String percent_admittance) {
-        this.percent_admittance = percent_admittance;
+    public void setReligious_affiliation(String religious_affiliation) {
+        this.religious_affiliation = religious_affiliation;
     }
 
-    public String getPercent_enrolled() {
-        return percent_enrolled;
+    public boolean isOffers_associate_degree() {
+        return offers_associate_degree;
     }
 
-    public void setPercent_enrolled(String percent_enrolled) {
-        this.percent_enrolled = percent_enrolled;
+    public void setOffers_associate_degree(boolean offers_associate_degree) {
+        this.offers_associate_degree = offers_associate_degree;
     }
 
-    public String getNo_applicants() {
-        return no_applicants;
+    public boolean isOffers_bachelor_degree() {
+        return offers_bachelor_degree;
     }
 
-    public void setNo_applicants(String no_applicants) {
-        this.no_applicants = no_applicants;
+    public void setOffers_bachelor_degree(boolean offers_bachelor_degree) {
+        this.offers_bachelor_degree = offers_bachelor_degree;
     }
 
-    public String getSat_verbal() {
-        return sat_verbal;
+    public boolean isOffers_master_degree() {
+        return offers_master_degree;
     }
 
-    public void setSat_verbal(String sat_verbal) {
-        this.sat_verbal = sat_verbal;
+    public void setOffers_master_degree(boolean offers_master_degree) {
+        this.offers_master_degree = offers_master_degree;
     }
 
-    public String getSat_math() {
-        return sat_math;
+    public boolean isOffers_doctor_degree_research_scholarship() {
+        return offers_doctor_degree_research_scholarship;
     }
 
-    public void setSat_math(String sat_math) {
-        this.sat_math = sat_math;
+    public void setOffers_doctor_degree_research_scholarship(boolean offers_doctor_degree_research_scholarship) {
+        this.offers_doctor_degree_research_scholarship = offers_doctor_degree_research_scholarship;
     }
 
-    public String getExpenses() {
-        return expenses;
+    public boolean isOffers_doctor_degree_professional_practice() {
+        return offers_doctor_degree_professional_practice;
     }
 
-    public void setExpenses(String expenses) {
-        this.expenses = expenses;
+    public void setOffers_doctor_degree_professional_practice(boolean offers_doctor_degree_professional_practice) {
+        this.offers_doctor_degree_professional_practice = offers_doctor_degree_professional_practice;
     }
 
-    public String getPercent_financial_aid() {
-        return percent_financial_aid;
+    public int getApplicants_total() {
+        return applicants_total;
     }
 
-    public void setPercent_financial_aid(String percent_financial_aid) {
-        this.percent_financial_aid = percent_financial_aid;
+    public void setApplicants_total(int applicants_total) {
+        this.applicants_total = applicants_total;
     }
 
-    public String getMale_female_ratio() {
-        return male_female_ratio;
+    public int getAdmissions_total() {
+        return admissions_total;
     }
 
-    public void setMale_female_ratio(String male_female_ratio) {
-        this.male_female_ratio = male_female_ratio;
+    public void setAdmissions_total(int admissions_total) {
+        this.admissions_total = admissions_total;
     }
 
-    public String getAcademics_scale() {
-        return academics_scale;
+    public int getEnrolled_total() {
+        return enrolled_total;
     }
 
-    public void setAcademics_scale(String academics_scale) {
-        this.academics_scale = academics_scale;
+    public void setEnrolled_total(int enrolled_total) {
+        this.enrolled_total = enrolled_total;
     }
 
-    public String getSocial_scale() {
-        return social_scale;
+    public int getPercent_admitted_total() {
+        return percent_admitted_total;
     }
 
-    public void setSocial_scale(String social_scale) {
-        this.social_scale = social_scale;
+    public void setPercent_admitted_total(int percent_admitted_total) {
+        this.percent_admitted_total = percent_admitted_total;
     }
 
-    public String getQuality_of_life_scale() {
-        return quality_of_life_scale;
+    public int getTotal_enrollment() {
+        return total_enrollment;
     }
 
-    public void setQuality_of_life_scale(String quality_of_life_scale) {
-        this.quality_of_life_scale = quality_of_life_scale;
+    public void setTotal_enrollment(int total_enrollment) {
+        this.total_enrollment = total_enrollment;
+    }
+
+    public int getUndergraduate_total_enrollment() {
+        return undergraduate_total_enrollment;
+    }
+
+    public void setUndergraduate_total_enrollment(int undergraduate_total_enrollment) {
+        this.undergraduate_total_enrollment = undergraduate_total_enrollment;
+    }
+
+    public int getGraduate_total_enrollment() {
+        return graduate_total_enrollment;
+    }
+
+    public void setGraduate_total_enrollment(int graduate_total_enrollment) {
+        this.graduate_total_enrollment = graduate_total_enrollment;
+    }
+
+    public int getTuition_and_fees() {
+        return tuition_and_fees;
+    }
+
+    public void setTuition_and_fees(int tuition_and_fees) {
+        this.tuition_and_fees = tuition_and_fees;
+    }
+
+    public int getSat_reading_25th_percentile_score() {
+        return sat_reading_25th_percentile_score;
+    }
+
+    public void setSat_reading_25th_percentile_score(int sat_reading_25th_percentile_score) {
+        this.sat_reading_25th_percentile_score = sat_reading_25th_percentile_score;
+    }
+
+    public int getSat_reading_75th_percentile_score() {
+        return sat_reading_75th_percentile_score;
+    }
+
+    public void setSat_reading_75th_percentile_score(int sat_reading_75th_percentile_score) {
+        this.sat_reading_75th_percentile_score = sat_reading_75th_percentile_score;
+    }
+
+    public int getSat_math_25th_percentile_score() {
+        return sat_math_25th_percentile_score;
+    }
+
+    public void setSat_math_25th_percentile_score(int sat_math_25th_percentile_score) {
+        this.sat_math_25th_percentile_score = sat_math_25th_percentile_score;
+    }
+
+    public int getSat_math_75th_percentile_score() {
+        return sat_math_75th_percentile_score;
+    }
+
+    public void setSat_math_75th_percentile_score(int sat_math_75th_percentile_score) {
+        this.sat_math_75th_percentile_score = sat_math_75th_percentile_score;
+    }
+
+    public int getSat_writing_25th_percentile_score() {
+        return sat_writing_25th_percentile_score;
+    }
+
+    public void setSat_writing_25th_percentile_score(int sat_writing_25th_percentile_score) {
+        this.sat_writing_25th_percentile_score = sat_writing_25th_percentile_score;
+    }
+
+    public int getSat_writing_75th_percentile_score() {
+        return sat_writing_75th_percentile_score;
+    }
+
+    public void setSat_writing_75th_percentile_score(int sat_writing_75th_percentile_score) {
+        this.sat_writing_75th_percentile_score = sat_writing_75th_percentile_score;
+    }
+
+    public int getAct_25th_percentile_score() {
+        return act_25th_percentile_score;
+    }
+
+    public void setAct_25th_percentile_score(int act_25th_percentile_score) {
+        this.act_25th_percentile_score = act_25th_percentile_score;
+    }
+
+    public int getAct_75th_percentile_score() {
+        return act_75th_percentile_score;
+    }
+
+    public void setAct_75th_percentile_score(int act_75th_percentile_score) {
+        this.act_75th_percentile_score = act_75th_percentile_score;
     }
 }

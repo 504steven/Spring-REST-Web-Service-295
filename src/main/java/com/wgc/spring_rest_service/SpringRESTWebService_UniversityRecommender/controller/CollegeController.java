@@ -1,24 +1,40 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.controller;
 
+import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.db.CollegeDao;
 import com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.entity.College;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.util.LinkedList;
 import java.util.List;
 
 @Api
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/university")
+@RequestMapping("/college")
 public class CollegeController {
+    @Autowired
+    CollegeDao collegeDao;
 
     @ApiOperation(value = "find all college objets whose name include the keyword")
-    @GetMapping()
-    public List<College> findUniversityByName(@PathParam("keyword") String universityName) {
-        return null;
+    @GetMapping("/name")
+    public List<College> findCollegeByName(@RequestParam(value = "name") String name) {
+        return collegeDao.findCollegeByName(name);
     }
+
+    @GetMapping("/order")
+    public List<College> findCollegeInOrder(@RequestParam(value = "num") Integer num, @RequestParam(value = "orderBy", required = false) String orderField ) {
+        return collegeDao.findCollegeInOrder(num, orderField);
+    }
+
+    @GetMapping("/location")
+    public List<College> findCollegeByLocation(@RequestParam("lat") Double lat, @RequestParam("lon") Double lon, @RequestParam("radius") Double radius ) {
+        return collegeDao.findCollegeByLocation(lon, lat, radius);
+    }
+
 
     @GetMapping("/FilteredUniversity")
     public List<College>  getFilteredUniversityInfo(@RequestParam String state, @RequestParam String control, @RequestParam String sat_verbal, @RequestParam String sat_math, @RequestParam String expenses) {
@@ -62,10 +78,4 @@ public class CollegeController {
         return true;
     }
 
-
-    @GetMapping("/test")
-    public String test(){
-        System.out.println("yyy");
-        return "xx";
-    }
 }
