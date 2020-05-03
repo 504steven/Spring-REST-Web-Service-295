@@ -4,13 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+import static com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.config.DBConfig.*;
+
 public class MySQLTableCreation {
-    private static final String HOSTNAME = "localhost";
-    private static final String PORT_NUM = "3306";
-    public static final String DB_NAME = "designyourcollege";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "root";
-    public static final String DB_URL = "jdbc:mysql://" + HOSTNAME + ":" + PORT_NUM ;
 
     public static void main(String[] args) {
         MySQLTableCreation mySQLTableCreation = new MySQLTableCreation();
@@ -27,13 +23,13 @@ public class MySQLTableCreation {
     }
 
     private void createDatabase() {
-        try( Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD)) {
+        try( Connection conn = DriverManager.getConnection(MYSQL_DB_URL, MYSQL_USERNAME, MYSQL_PASSWORD)) {
             // Import java.sql.Statement. Not com.mysql.jdbc.Statement.
             Statement stmt = conn.createStatement();
-            String sql = "DROP DATABASE IF EXISTS " + DB_NAME;
+            String sql = "DROP DATABASE IF EXISTS " + MYSQL_DB_NAME;
             stmt.executeUpdate(sql);
 
-            sql = "Create DATABASE " + DB_NAME;
+            sql = "Create DATABASE " + MYSQL_DB_NAME;
             stmt.executeUpdate(sql);
         }catch (Exception e) {
             e.printStackTrace();
@@ -41,7 +37,7 @@ public class MySQLTableCreation {
     }
 
     private void createTables() {
-        try( Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USERNAME, PASSWORD)) {
+        try( Connection conn = DriverManager.getConnection(MYSQL_DB_URL + "/" + MYSQL_DB_NAME, MYSQL_USERNAME, MYSQL_PASSWORD)) {
             Statement stmt = conn.createStatement();
 
             //Create app_uer tables.

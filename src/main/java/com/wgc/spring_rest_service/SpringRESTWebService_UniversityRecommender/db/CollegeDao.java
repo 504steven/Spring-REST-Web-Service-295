@@ -10,14 +10,11 @@ import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.LinkedList;
 import java.util.List;
-
-import static com.mongodb.client.model.Filters.eq;
 
 @Repository
 public class CollegeDao {
-    private final String collegeCollection = "colleges";
+    private static String COLLEGE_COLLECTION = "colleges";
     @Autowired
     MongoDatabase db;
 
@@ -45,7 +42,7 @@ public class CollegeDao {
         Point currentLoc = new Point(new Position(lon, lat));
 
         // the results are sorted from nearest to farthest.
-        FindIterable<Document> results = db.getCollection(collegeCollection).find(
+        FindIterable<Document> results = db.getCollection(COLLEGE_COLLECTION).find(
                 Filters.near("loc", currentLoc, radius, 0.0));
         return null;
     }
