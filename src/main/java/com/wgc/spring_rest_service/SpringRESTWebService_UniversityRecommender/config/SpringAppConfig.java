@@ -12,8 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-import static com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.config.DBConfig.MYSQL_DB_NAME;
-import static com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.config.DBConfig.MYSQL_DB_URL;
+import static com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender.config.DBConfig.*;
 
 @Configuration
 @PropertySource("application.properties")
@@ -26,8 +25,8 @@ public class SpringAppConfig {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl( MYSQL_DB_URL + "/" + MYSQL_DB_NAME);
-        dataSource.setUsername("root");
-        dataSource.setPassword("root");
+        dataSource.setUsername(MYSQL_USERNAME);
+        dataSource.setPassword(MYSQL_PASSWORD);
         return dataSource;
     }
 
@@ -38,11 +37,7 @@ public class SpringAppConfig {
 
     @Bean
     public MongoDatabase getMongoDatabase() {
-        String IP = "localhost";
-        int PORT = 27017;
-        String DB_NAME = "designyourcollege";
-
-        return new MongoClient(IP, PORT).getDatabase( DB_NAME);
+        return new MongoClient(MONGODB_IP, MONGODB_PORT).getDatabase( MONGODB_DB_NAME);
     }
 
 

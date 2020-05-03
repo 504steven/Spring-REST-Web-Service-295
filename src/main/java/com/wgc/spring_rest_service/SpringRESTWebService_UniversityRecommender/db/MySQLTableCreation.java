@@ -63,10 +63,10 @@ public class MySQLTableCreation {
             sql = "INSERT INTO role VALUES (1,\"Admin\")";
             stmt.executeUpdate(sql);
 
-            System.out.println("AppUser and Role tables are created Successfully.");
+            System.out.println("-----------   AppUser and Role tables are created Successfully.  -----------");
         }catch (Exception e) {
             e.printStackTrace();
-            System.out.println("AppUser and Role tables are created Failed.");
+            System.err.println("-----------    AppUser and Role tables are created Failed.   --------------");
         }
     }
 

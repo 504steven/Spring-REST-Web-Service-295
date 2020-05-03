@@ -66,7 +66,7 @@ public class MongoDBDataIndexCreation {
                 headerline = false;
             }
             bufferedReader.close();
-            System.out.println("Import Done!");
+            System.out.println("--------------  Data Import Done!  ------------");
 
             db.getCollection(COLLEGE_COLLECTION).createIndex(Indexes.geo2dsphere("loc"));
             db.getCollection(COLLEGE_COLLECTION).createIndex(Indexes.text("name"));
@@ -80,7 +80,7 @@ public class MongoDBDataIndexCreation {
 //            .append("offers_bachelor_degree",1).append("offers_master_degree",1)
 //                   .append("offers_doctor_degree_research_scholarship",1).append("offers_doctor_degree_professional_practice",1));
             db.getCollection(COLLEGE_COLLECTION).createIndex( new Document("tuition_and_fees",1));
-            System.out.println("Index Created!");
+            System.out.println("-------------    Index Created!       -------------");
             mongoClient.close();
 
         } catch (Exception e) {
