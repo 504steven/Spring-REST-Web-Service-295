@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.wgc.spring_rest_service.Spring-REST-Web-Service_University-Recommender' is invalid and this project uses 'com.wgc.spring_rest_service.SpringRESTWebService_UniversityRecommender' instead.
+* The original package name 'com.wgc.spring_rest_service.Spring-REST-Web-Service_University-Recommender' is invalid and this project uses 'com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender' instead.
 
 # Getting Started
 
