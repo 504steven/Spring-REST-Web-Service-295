@@ -47,7 +47,7 @@ public class UserController {
         boolean validation = bCryptPasswordEncoder.matches(appUser.getPassword(), appUserOnDB.getPassword());
 //        appUserOnDB.setPassword(null);
         if(!validation) {
-            throw new WrongArgumentException("Wrong username-password");
+            throw new WrongArgumentException("Wrong password.");
         }
         response.addHeader( JWTUtil.HEADER_STRING, JWTUtil.TOKEN_PREFIX + JWTUtil.createTokenOnAppUser(appUserOnDB));
         logger.info("User logged in successfully.");
