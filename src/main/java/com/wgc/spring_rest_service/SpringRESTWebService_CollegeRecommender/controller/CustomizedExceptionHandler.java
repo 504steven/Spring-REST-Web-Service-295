@@ -6,11 +6,11 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 
-@ControllerAdvice
-public class ExceptionHandler {
-    private static Logger logger = LoggerFactory.getLogger(ExceptionHandler.class);
+// !!!!!! Can be, but not used in the proj, since we are letting Spring to catch all Exceptions and log the exception info
+//@ControllerAdvice
+public class CustomizedExceptionHandler {
+    private static Logger logger = LoggerFactory.getLogger(CustomizedExceptionHandler.class);
 
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
     public ResponseEntity<String> handle(Exception e) {

@@ -49,11 +49,7 @@ public class AppUserDao {
     public AppUser getAppUserByEmail(String email){
         String sql = "SELECT * FROM app_user WHERE email = ?";
         AppUser appUser = null;
-        try{
-            appUser = jdbcTemplate.queryForObject(sql, appUserRowMapper, email);
-        }catch (Exception e) {
-            throw new RuntimeException("User for the email does not exists.");
-        }
+        appUser = jdbcTemplate.queryForObject(sql, appUserRowMapper, email);
         sql = "SELECT role FROM role WHERE userId = ?";
         List<String> roles = jdbcTemplate.queryForList(sql, String.class, appUser.getUserId());
         appUser.setRoles(roles);
