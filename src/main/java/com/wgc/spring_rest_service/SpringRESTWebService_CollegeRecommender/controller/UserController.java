@@ -1,5 +1,6 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.controller;
 
+import com.mysql.cj.exceptions.WrongArgumentException;
 import com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.db.AppUserDao;
 import com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.entity.AppUser;
 import com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.security.JWTUtil;
@@ -45,16 +46,13 @@ public class UserController {
         AppUser appUserOnDB = appUserDao.getAppUserByEmail(appUser.getEmail());
         boolean validation = bCryptPasswordEncoder.matches(appUser.getPassword(), appUserOnDB.getPassword());
 //        appUserOnDB.setPassword(null);
-        if(validation) {
-            response.addHeader( JWTUtil.HEADER_STRING, JWTUtil.TOKEN_PREFIX + JWTUtil.createTokenOnAppUser(appUserOnDB));
-            logger.info("User logged in successfully.");
-            MDC.clear();
-            return new ResponseEntity<>(appUserOnDB, HttpStatus.OK);
-        }else {
-            logger.warn("User logged in failed, wrong username(email)-password.");
-            MDC.clear();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(!validation) {
+            throw new WrongArgumentException("Wrong username-password");
         }
+        response.addHeader( JWTUtil.HEADER_STRING, JWTUtil.TOKEN_PREFIX + JWTUtil.createTokenOnAppUser(appUserOnDB));
+        logger.info("User logged in successfully.");
+        MDC.clear();
+        return new ResponseEntity<>(appUserOnDB, HttpStatus.OK);
     }
 
     @PostMapping("/logout")
