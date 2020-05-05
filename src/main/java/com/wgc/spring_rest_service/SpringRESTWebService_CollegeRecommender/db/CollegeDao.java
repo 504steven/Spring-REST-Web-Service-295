@@ -52,8 +52,19 @@ public class CollegeDao {
         return res;
     }
 
-    public List<College> findCollegeInOrder(Integer num, String orderField) {
-        return null;
+    public List<College> findCollegeInOrder(int num, int page, String orderField) {
+        if(orderField == null) {
+            orderField = "id";
+        }
+        int start = (page-1)*num+1;
+        int end = page * num;
+        FindIterable<Document> dbRes = db.getCollection(COLLEGE_COLLECTION).find().sort( new Document(orderField, 1)).skip(start).limit(num);
+        Iterator<Document> itr = dbRes.iterator();
+        List<College> res = new LinkedList<>();
+        while(itr.hasNext()) {
+            res.add( docToCollege( itr.next()));
+        }
+        return res;
     }
 
     public List<College> findCollegeByLocation(Double lon, Double lat, Double radius) {
@@ -61,6 +72,7 @@ public class CollegeDao {
 
         // the results are sorted from nearest to farthest.
         FindIterable<Document> dbRes = db.getCollection(COLLEGE_COLLECTION).find(
+                                                            // maxDis, minDis  in meter, but Accuracy is at km level.
                 Filters.near("loc", currentLoc, radius, 0.0));
         Iterator<Document> itr = dbRes.iterator();
         List<College> res = new LinkedList<>();
@@ -106,7 +118,7 @@ public class CollegeDao {
 
         List<Double> coords = doc.get("loc", Document.class).get("coordinates", List.class);
         college.setLon(coords.get(0));
-        college.setLon(coords.get(1));
+        college.setLat(coords.get(1));
 
         college.setState(doc.getString("state"));
         college.setControl(doc.getString("control"));

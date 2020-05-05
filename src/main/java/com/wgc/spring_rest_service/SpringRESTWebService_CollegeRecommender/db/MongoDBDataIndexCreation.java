@@ -34,7 +34,7 @@ public class MongoDBDataIndexCreation {
             while ((line = bufferedReader.readLine()) != null) {
                 String[] values = line.split(",");
                 Document doc = new Document();
-                for (int i = 0; i < values.length; i++) {
+                for (int i = 0; i < filedNames.length; i++) {
                     if (headerline) {
 //                        doc.append(filedNames[i], values[i]);
                     } else {

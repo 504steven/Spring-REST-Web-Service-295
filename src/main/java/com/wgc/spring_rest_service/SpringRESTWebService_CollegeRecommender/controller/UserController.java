@@ -51,7 +51,7 @@ public class UserController {
             MDC.clear();
             return new ResponseEntity<>(appUserOnDB, HttpStatus.OK);
         }else {
-            logger.info("User logged in failed, wrong username(email)-password.");
+            logger.warn("User logged in failed, wrong username(email)-password.");
             MDC.clear();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

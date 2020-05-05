@@ -6,8 +6,8 @@ import io.swagger.annotations.ApiModel;
 public class College {
     private int id;
     private String name;
-    private double lat;
     private double lon;
+    private double lat;
     private String state;
     private String control;
     private String urbanization;
