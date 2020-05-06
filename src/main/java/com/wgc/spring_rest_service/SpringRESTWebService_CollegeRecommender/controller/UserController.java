@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -83,8 +85,12 @@ public class UserController {
     }
 
     @PostMapping("/jwt")
-    public boolean jwt() {
-        return true;
+    public Map jwt() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("k", "v");
+        map.put("n",1);
+        map.put("user", new AppUser());
+        return map;
     }
 
     @GetMapping("/testMySQLTransaction")
