@@ -19,8 +19,9 @@ public class CustomizedExceptionHandler {
     @ExceptionHandler(EmptyResultDataAccessException.class)
     public ResponseEntity<String> handle(Exception e) {
         logger.error("", e);
+        String userInfo = MDC.get("UserInfo");
         MDC.clear();
-        //                                        HttpStatus.INTERNAL_SERVER_ERROR,
-        return new ResponseEntity("User-"+MDC.get("UserInfo")+" was not found", HttpStatus.BAD_REQUEST );
+        //                                                                   HttpStatus.INTERNAL_SERVER_ERROR,
+        return new ResponseEntity("User-"+ userInfo +" was not found", HttpStatus.BAD_REQUEST );
     }
 }
