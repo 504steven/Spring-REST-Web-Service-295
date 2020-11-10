@@ -28,10 +28,6 @@ public class CollegeDao {
         return true;
     }
 
-    public College getCollege(int collegeId) {
-        return null;
-    }
-
     public College findCollegeById(int id) {
         FindIterable<Document> dbRes = db.getCollection(COLLEGE_COLLECTION).find( new Document("id", id));
         Iterator<Document> itr = dbRes.iterator();
@@ -57,7 +53,7 @@ public class CollegeDao {
             orderField = "id";
         }
         int start = (page-1)*num+1;
-        int end = page * num;
+//        int end = page * num;
         FindIterable<Document> dbRes = db.getCollection(COLLEGE_COLLECTION).find().sort( new Document(orderField, 1)).skip(start).limit(num);
         Iterator<Document> itr = dbRes.iterator();
         List<College> res = new LinkedList<>();
