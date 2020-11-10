@@ -4,6 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import static com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.config.DBConfig.*;
@@ -15,6 +16,7 @@ public class MySQLTableCreation {
         MySQLTableCreation mySQLTableCreation = new MySQLTableCreation();
         mySQLTableCreation.createDatabase();
         mySQLTableCreation.createTables();
+        mySQLTableCreation.getTestData();
     }
 
     private MySQLTableCreation() {
@@ -75,4 +77,41 @@ public class MySQLTableCreation {
         }
     }
 
+    private void getTestData() {
+        String USER_ID = "userId", EMAIL = "email", PASSWORD = "password", LASTNAME = "lastName", FIRSTNAME = "firstName"
+                         , AGE = "age", GPA = "gpa", ROLE = "role";
+
+
+
+        try( Connection conn = DriverManager.getConnection(MYSQL_DB_URL + "/" + MYSQL_DB_NAME, MYSQL_USERNAME, MYSQL_PASSWORD)) {
+            Statement stmt = conn.createStatement();
+
+            String sql = "SELECT * FROM app_user";
+            ResultSet rs = stmt.executeQuery(sql);
+            System.out.println("get test data from table-app_user : ");
+            while(rs.next()) {
+                System.out.println("    " + USER_ID + " : " + rs.getString("userId"));
+                System.out.println("    " + EMAIL + " : " + rs.getString("email"));
+                System.out.println("    " + PASSWORD + " : " + rs.getString("password"));
+                System.out.println("    " + LASTNAME + " : " + rs.getString("lastName"));
+                System.out.println("    " + FIRSTNAME + " : " + rs.getString("firstName"));
+                System.out.println("    " + AGE + " : " + rs.getString("age"));
+                System.out.println("    " + GPA + " : " + rs.getString("gpa"));
+            }
+
+            sql = "SELECT * FROM role";
+            rs = stmt.executeQuery(sql);
+            System.out.println("get test data from table-role : ");
+            while(rs.next()) {
+                System.out.println("    " + USER_ID + " : " + rs.getString("userId"));
+                System.out.println("    " + ROLE + " : " + rs.getString("role"));
+            }
+
+            System.err.println("-----------    Retrieving data from AppUser and Role tables Succeeded.   --------------");
+        }catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("-----------    Retrieving data from AppUser and Role tables are Failed.   --------------");
+        }
+
+    }
 }

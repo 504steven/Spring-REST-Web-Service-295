@@ -1,6 +1,7 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.db;
 
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.IndexOptions;
 import com.mongodb.client.model.Indexes;
@@ -8,6 +9,7 @@ import org.bson.Document;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,10 +27,10 @@ public class MongoDBDataIndexCreation {
         MongoDatabase db = mongoClient.getDatabase(MONGODB_DB_NAME);
         db.getCollection(COLLEGE_COLLECTION).drop();
 
+        // load data
         String line = null;
         try {
             FileReader fileReader = new FileReader(fileName);
-
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             boolean headerline = true;
             while ((line = bufferedReader.readLine()) != null) {
@@ -66,6 +68,9 @@ public class MongoDBDataIndexCreation {
             }
             bufferedReader.close();
             System.out.println("--------------  Data Import Done!  ------------");
+
+
+            // create db index
             IndexOptions uniqueIndex = new IndexOptions().unique(true);
             db.getCollection(COLLEGE_COLLECTION).createIndex(Indexes.geo2dsphere("loc"), uniqueIndex);
             db.getCollection(COLLEGE_COLLECTION).createIndex(Indexes.text("name"));
@@ -80,6 +85,20 @@ public class MongoDBDataIndexCreation {
 //                   .append("offers_doctor_degree_research_scholarship",1).append("offers_doctor_degree_professional_practice",1));
             db.getCollection(COLLEGE_COLLECTION).createIndex(new Document("tuition_and_fees", 1));
             System.out.println("-------------    Index Created!       -------------");
+
+
+            // retrieve data for testing
+            FindIterable<Document> res = db.getCollection(COLLEGE_COLLECTION).find(new Document().append("state", "alabama"));
+            System.out.println("-------------    get alabama data for testing from MongoDB-" + COLLEGE_COLLECTION + " : " );
+            Iterator<Document> itr = res.iterator();
+            while(itr.hasNext()) {
+                Document doc = itr.next();
+                System.out.println("    " + filedNames[0] + " : " + doc.getInteger(filedNames[0] ));
+                System.out.println("    " + filedNames[1] + " : " + doc.getString(filedNames[1] ));
+                System.out.println("    " + filedNames[4] + " : " + doc.getString(filedNames[4] ));
+                System.out.println("    " + filedNames[13] + " : " + doc.getInteger(filedNames[13] ));
+            }
+
             mongoClient.close();
 
         } catch (Exception e) {
@@ -87,6 +106,4 @@ public class MongoDBDataIndexCreation {
         }
 
     }
-
-
 }
