@@ -39,7 +39,7 @@ public class CollegeController {
     public List<College> findCollegeInOrder(HttpServletRequest req, @RequestParam(value = "num") Integer num, @RequestParam(value = "page") Integer page, @RequestParam(value = "orderby", required = false) String orderField ) {
         MDC.put("userInfo","User Id-" + req.getAttribute("userId"));
         if(orderField == null) {    orderField = "id";}
-        logger.info("{}: User is trying to find colleges with num = {}, page = {}, orderby = {}", req.getRequestURI(), num, page, orderField);
+        logger.info("{}: User is trying to find colleges with num = {}, page = {}, order by = {}", req.getRequestURI(), num, page, orderField);
         List<College> res = null;
         if(num <= 0 || page <= 0) {
             res = new LinkedList<>();
