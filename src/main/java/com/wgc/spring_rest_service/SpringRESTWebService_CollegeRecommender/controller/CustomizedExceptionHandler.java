@@ -4,6 +4,7 @@ package com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.cont
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,17 +12,26 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
+// only catch the exception we need to customize, and let Spring to handle all other Exceptions and log the exception info
 @ControllerAdvice
 public class CustomizedExceptionHandler {
     private static Logger logger = LoggerFactory.getLogger(CustomizedExceptionHandler.class);
 
-    // only catch the exception we need to customize, and let Spring to handle all other Exceptions and log the exception info
     @ExceptionHandler(EmptyResultDataAccessException.class)
-    public ResponseEntity<String> handle(Exception e) {
+    public ResponseEntity<String> handleEmptyResultDataAccessException(Exception e) {
         logger.error("", e);
-        String userInfo = MDC.get("UserInfo");
+        String userInfo = MDC.get("userInfo");
         MDC.clear();
         //                                                                   HttpStatus.INTERNAL_SERVER_ERROR,
-        return new ResponseEntity("User-"+ userInfo +" was not found", HttpStatus.BAD_REQUEST );
+        return new ResponseEntity(userInfo +" was not found", HttpStatus.BAD_REQUEST );
+    }
+
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ResponseEntity<String> handleDuplicateKeyException(Exception e) {
+        logger.error("", e);
+        String userInfo = MDC.get("userInfo");
+        MDC.clear();
+        //                                                                   HttpStatus.INTERNAL_SERVER_ERROR,
+        return new ResponseEntity( userInfo +" existed already", HttpStatus.BAD_REQUEST );
     }
 }
