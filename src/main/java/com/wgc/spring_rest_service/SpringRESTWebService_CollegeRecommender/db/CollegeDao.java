@@ -53,7 +53,7 @@ public class CollegeDao {
         if(orderField == null) {
             orderField = "id";
         }
-        int start = (page-1)*num+1;
+        int start = (page-1)*num+1;  // start from 1
 //        int end = page * num;
         FindIterable<Document> dbRes = db.getCollection(COLLEGE_COLLECTION).find().sort( new Document(orderField, 1)).skip(start).limit(num);
         Iterator<Document> itr = dbRes.iterator();
