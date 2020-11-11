@@ -1,13 +1,13 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.config;
 
 import com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.security.JWTAuthenticateFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.security.UserDetailsServiceImpl;
 
 @EnableWebSecurity
@@ -27,12 +27,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             "/user/login",
     };
 
-//    @Autowired
-//    private UserDetailsServiceImpl userDetailsServiceImpl;
-
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable().authorizeRequests()
@@ -48,6 +42,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
         // used for LoginFilter to do authentication
+
+//        @Autowired
+//        private UserDetailsServiceImpl userDetailsServiceImpl;
+//
+//        @Autowired
+//        BCryptPasswordEncoder bCryptPasswordEncoder;
+
 //        @Override
 //        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //            auth.userDetailsService(userDetailsServiceImpl).passwordEncoder( bCryptPasswordEncoder);
