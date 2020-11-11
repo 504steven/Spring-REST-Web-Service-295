@@ -23,6 +23,7 @@ public class JWTAuthenticateFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                                     FilterChain filterChain) throws ServletException, IOException {
+        System.out.println("------------------  filter before servlet");
         String authorizationHeader = httpServletRequest.getHeader( JWTUtil.HEADER_STRING);
         UsernamePasswordAuthenticationToken auth = null;
         if(authorizationHeader != null && authorizationHeader.startsWith( JWTUtil.TOKEN_PREFIX)) {
@@ -44,6 +45,8 @@ public class JWTAuthenticateFilter extends BasicAuthenticationFilter {
         // this set Authentication to be a new one. So if the new one's authenticated = true, then it passes
         SecurityContextHolder.getContext().setAuthentication( auth);
         filterChain.doFilter(httpServletRequest, httpServletResponse);
+
+        System.out.println("------------------  filter after servlet");
     }
 }
 
