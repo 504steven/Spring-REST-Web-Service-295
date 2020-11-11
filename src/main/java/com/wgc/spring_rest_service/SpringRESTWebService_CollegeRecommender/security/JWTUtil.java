@@ -43,6 +43,7 @@ public class JWTUtil {
 
     public static String createTokenOnAppUser(AppUser appUserOnDB) {
         return JWT.create()
+                                                // use userId not email, so that user can update email as userId is fixed for sure.
                 .withSubject( Integer.toString( appUserOnDB.getUserId()))
                 //store claim for role info to JWT token
                 .withArrayClaim("Roles", appUserOnDB.getRoles().toArray(new String[0]))
