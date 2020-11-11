@@ -26,7 +26,7 @@ public class AppUserDao {
         }
         String sql = "INSERT INTO app_user (EMAIL, PASSWORD, FIRSTNAME, LASTNAME, GENDER, AGE, STATUS, CURRENTID, SCHOOLNAME, GPA, SAT_MATH, SAT_reading, SAT_writing, ACT, EXPENSE_LIMIT) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        int res = jdbcTemplate.update(sql, appUser.getEmail(), appUser.getPassword(), appUser.getFirstName(), appUser.getLastName(), appUser.getGender(),
+        jdbcTemplate.update(sql, appUser.getEmail(), appUser.getPassword(), appUser.getFirstName(), appUser.getLastName(), appUser.getGender(),
                 appUser.getAge(), appUser.getStatus(), appUser.getCurrentId(), appUser.getSchoolName(), appUser.getGpa(), appUser.getSAT_math(), appUser.getSAT_reading(), appUser.getSAT_writing(), appUser.getACT(),
                 appUser.getExpense_limit());
         int userId = jdbcTemplate.queryForObject("SELECT userId FROM app_user WHERE email = ? ", Integer.class, appUser.getEmail());
@@ -34,7 +34,7 @@ public class AppUserDao {
             sql = "INSERT INTO role VALUES (?, ?)";
             jdbcTemplate.update(sql, userId, role);
         }
-        return res;
+        return userId;
     }
 
     public AppUser getAppUserById(int userId){
