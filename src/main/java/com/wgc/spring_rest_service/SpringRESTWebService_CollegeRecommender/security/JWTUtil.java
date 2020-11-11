@@ -27,7 +27,8 @@ public class JWTUtil {
     public static void verifyJWTwithUserId(HttpServletRequest req, int userId) {
         String decodedUserId =  (String)req.getAttribute("userId");
         if( !decodedUserId.equals( Integer.toString(userId))) {
-            throw new AccessDeniedException("Access Denied");
+            logger.error("user send Wrong JWT or Wrong UserId.");
+            throw new AccessDeniedException("----Access Denied----");
         }
     }
 
