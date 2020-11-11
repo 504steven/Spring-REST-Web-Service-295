@@ -34,19 +34,21 @@ public class UserController {
 
     @PostMapping("/signup")
     public void  signup(HttpServletRequest req, @RequestBody AppUser appUser) {
-        MDC.put("userInfo", "User-" + appUser.getEmail());
-        logger.info(req.getRequestURI() + ": User is trying to sign up...");
+        logger.info("{}: User Email-{} is trying to sign up...", req.getRequestURI(), appUser.getEmail());
         appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
-        appUserDao.saveAppUser(appUser);
-        logger.info("User signed up successfully.");
+        int userId = appUserDao.saveAppUser(appUser);
+
+        MDC.put("userInfo", "User Id-" + userId);
+        logger.info("User Email-{} signed up successfully.", appUser.getEmail());
         MDC.clear();
     }
 
     @PostMapping("/login")
     public ResponseEntity<AppUser> login(HttpServletRequest req, HttpServletResponse response, @RequestBody AppUser appUser) {
-        MDC.put("userInfo", "User-" + appUser.getEmail());
-        logger.info( req.getRequestURI() + ": User is trying to login...");
+        logger.info( req.getRequestURI() + ": User Email-{} is trying to login...", appUser.getEmail());
         AppUser appUserOnDB = appUserDao.getAppUserByEmail(appUser.getEmail());
+
+        MDC.put("userInfo", "User Id-" + appUser.getUserId());
         boolean validation = bCryptPasswordEncoder.matches(appUser.getPassword(), appUserOnDB.getPassword());
 //        appUserOnDB.setPassword(null);
         if(!validation) {
@@ -63,8 +65,8 @@ public class UserController {
 //        System.out.println("-----xxxx debug-x--x");
 //        System.out.println(auth.getName());
 //        System.out.println(auth.getPrincipal().toString());
-        MDC.put("userInfo", "User-" + appUser.getEmail());
-        logger.info( req.getRequestURI() + ": User is trying to logout...");
+        MDC.put("userInfo", "User Id -" + appUser.getUserId());
+        logger.info( "{}: User is trying to logout...", req.getRequestURI());
         JWTUtil.verifyJWTwithUserId(req, appUser.getUserId());
         String authorizationHeader = httpServletRequest.getHeader( JWTUtil.HEADER_STRING);
         JWTUtil.invalidateToken( authorizationHeader.replace( JWTUtil.TOKEN_PREFIX, ""));
@@ -76,7 +78,7 @@ public class UserController {
     public void update(Authentication auth, HttpServletRequest req, @RequestBody AppUser appUser) {
                                     // userId is fixed. email can be updated
         MDC.put("userInfo", "User Id -" + appUser.getUserId());
-        logger.info(req.getRequestURI() + ": User is trying to update profile...");
+        logger.info("{}: User is trying to update profile...", req.getRequestURI());
         JWTUtil.verifyJWTwithUserId(req, appUser.getUserId());
         appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
         appUserDao.updateAppUser(appUser);
