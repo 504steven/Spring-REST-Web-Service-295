@@ -60,9 +60,9 @@ public class UserController {
 
     @PostMapping("/logout")
     public void logout(Authentication auth, HttpServletRequest req, HttpServletRequest httpServletRequest, @RequestBody AppUser appUser) {
-        System.out.println(auth.toString());
-        System.out.println(auth.getName());
-        System.out.println(auth.getPrincipal().toString());
+//        System.out.println("-----xxxx debug-x--x");
+//        System.out.println(auth.getName());
+//        System.out.println(auth.getPrincipal().toString());
         MDC.put("userInfo", "User-" + appUser.getEmail());
         logger.info( req.getRequestURI() + ": User is trying to logout...");
         JWTUtil.verifyJWTwithUserId(req, appUser.getUserId());
@@ -74,7 +74,8 @@ public class UserController {
 
     @PutMapping("/profile")
     public void update(Authentication auth, HttpServletRequest req, @RequestBody AppUser appUser) {
-        MDC.put("userInfo", "User-" + appUser.getEmail());
+                                    // userId is fixed. email can be updated
+        MDC.put("userInfo", "User Id -" + appUser.getUserId());
         logger.info(req.getRequestURI() + ": User is trying to update profile...");
         JWTUtil.verifyJWTwithUserId(req, appUser.getUserId());
         appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
