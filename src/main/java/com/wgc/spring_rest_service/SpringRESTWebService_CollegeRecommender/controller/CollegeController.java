@@ -28,7 +28,7 @@ public class CollegeController {
     @GetMapping("/name")
     public List<College> findCollegeByName(HttpServletRequest req, @RequestParam(value = "name") String name) {
         MDC.put("userInfo","User Id-" + req.getAttribute("userId"));
-        logger.info(req.getRequestURI() + ": User is trying to find colleges with name = {} ...", name);
+        logger.info("{}: User is trying to find colleges with name = {} ...", req.getRequestURI(), name);
         List<College> res = collegeDao.findCollegeByName(name);
         logger.info("Found {} colleges with name = {}", res.size(), name);
         MDC.clear();
@@ -39,7 +39,7 @@ public class CollegeController {
     public List<College> findCollegeInOrder(HttpServletRequest req, @RequestParam(value = "num") Integer num, @RequestParam(value = "page") Integer page, @RequestParam(value = "orderby", required = false) String orderField ) {
         MDC.put("userInfo","User Id-" + req.getAttribute("userId"));
         if(orderField == null) {    orderField = "id";}
-        logger.info(req.getRequestURI() + ": User is trying to find colleges with num = {}, page = {}, orderby = {}", num, page, orderField);
+        logger.info("{}: User is trying to find colleges with num = {}, page = {}, orderby = {}", req.getRequestURI(), num, page, orderField);
         List<College> res = null;
         if(num <= 0 || page <= 0) {
             res = new LinkedList<>();
@@ -54,7 +54,7 @@ public class CollegeController {
     @GetMapping("/location")
     public List<College> findCollegeByLocation(HttpServletRequest req, @RequestParam("lon") Double lon, @RequestParam("lat") Double lat, @RequestParam("radius") Double radius ) {
         MDC.put("userInfo","User Id-" + req.getAttribute("userId"));
-        logger.info(req.getRequestURI() + ": User is trying to find colleges at lon = {}, lat = {}, within = {}", lon, lat, radius * 1000);
+        logger.info( "{}: User is trying to find colleges at lon = {}, lat = {}, within = {}", req.getRequestURI(), lon, lat, radius * 1000);
         List<College> res =  collegeDao.findCollegeByLocation(lon, lat, radius);
         logger.info("Found {} colleges by the location ({},{}) within {}", res.size(), lon, lat, radius);
         MDC.clear();
