@@ -17,7 +17,6 @@ import static com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommende
 
 
 public class MongoDBDataIndexCreation {
-    private static String COLLEGE_COLLECTION = "colleges";
     private static String fileName = "E:/__BackUp/__Ppriva/CollegeUniversity_Material/SJSU_Software/_____295_MasterProject/college_data_test.csv";
     private static String[] filedNames = {"id", "name", "loc_", "loc", "state", "control", "urbanization", "religious_affiliation", "offers_associate_degree", "offers_bachelor_degree", "offers_master_degree", "offers_doctor_degree_research_scholarship", "offers_doctor_degree_professional_practice", "applicants_total", "admissions_total", "enrolled_total", "percent_admitted_total", "total_enrollment", "undergraduate_total_enrollment", "graduate_total_enrollment"
             , "tuition_and_fees", "sat_reading_25th_percentile_score", "sat_reading_75th_percentile_score", "sat_math_25th_percentile_score", "sat_math_75th_percentile_score", "sat_writing_25th_percentile_score", "sat_writing_75th_percentile_score", "act_25th_percentile_score", "act_75th_percentile_score"};

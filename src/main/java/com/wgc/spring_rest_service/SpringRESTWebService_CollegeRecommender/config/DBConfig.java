@@ -13,5 +13,6 @@ public class DBConfig {
     public static String MONGODB_IP = "ec2-18-223-126-29.us-east-2.compute.amazonaws.com";
     public static int MONGODB_PORT = 27017;
     public static String MONGODB_DB_NAME = "designyourcollege";
+    public static String COLLEGE_COLLECTION = "colleges";
 
 }

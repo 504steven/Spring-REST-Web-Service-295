@@ -14,9 +14,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.config.DBConfig.COLLEGE_COLLECTION;
+
 @Repository
 public class CollegeDao {
-    private static String COLLEGE_COLLECTION = "colleges";
     @Autowired
     MongoDatabase db;
 
