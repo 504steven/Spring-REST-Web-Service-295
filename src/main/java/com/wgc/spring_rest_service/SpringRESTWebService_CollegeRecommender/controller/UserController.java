@@ -63,7 +63,7 @@ public class UserController {
         System.out.println(auth.toString());
         System.out.println(auth.getName());
         System.out.println(auth.getPrincipal().toString());
-        MDC.put("userInfo", "User Id-" + appUser.getUserId());
+        MDC.put("userInfo", "User-" + appUser.getEmail());
         logger.info( req.getRequestURI() + ": User is trying to logout...");
         JWTUtil.verifyJWTwithUserId(req, appUser.getUserId());
         String authorizationHeader = httpServletRequest.getHeader( JWTUtil.HEADER_STRING);
@@ -74,7 +74,7 @@ public class UserController {
 
     @PutMapping("/profile")
     public void update(Authentication auth, HttpServletRequest req, @RequestBody AppUser appUser) {
-        MDC.put("userInfo", "User Id-" + appUser.getUserId());
+        MDC.put("userInfo", "User-" + appUser.getEmail());
         logger.info(req.getRequestURI() + ": User is trying to update profile...");
         JWTUtil.verifyJWTwithUserId(req, appUser.getUserId());
         appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
