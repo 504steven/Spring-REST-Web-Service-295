@@ -27,7 +27,7 @@ public class AppUserDao {
         String sql = "INSERT INTO app_user (EMAIL, PASSWORD, FIRSTNAME, LASTNAME, GENDER, AGE, STATUS, CURRENTID, SCHOOLNAME, GPA, SAT_MATH, SAT_reading, SAT_writing, ACT, EXPENSE_LIMIT) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         int res = jdbcTemplate.update(sql, appUser.getEmail(), appUser.getPassword(), appUser.getFirstName(), appUser.getLastName(), appUser.getGender(),
-                appUser.getAge(), appUser.getStatus(), appUser.getCurrentId(), appUser.getSchoolName(), appUser.getGpa(), appUser.getSAT_math(), appUser.getSAT_reading(), appUser.getSAT_wrting(), appUser.getACT(),
+                appUser.getAge(), appUser.getStatus(), appUser.getCurrentId(), appUser.getSchoolName(), appUser.getGpa(), appUser.getSAT_math(), appUser.getSAT_reading(), appUser.getSAT_writing(), appUser.getACT(),
                 appUser.getExpense_limit());
         int userId = jdbcTemplate.queryForObject("SELECT userId FROM app_user WHERE email = ? ", Integer.class, appUser.getEmail());
         for(String role : appUser.getRoles()) {
@@ -48,8 +48,7 @@ public class AppUserDao {
 
     public AppUser getAppUserByEmail(String email){
         String sql = "SELECT * FROM app_user WHERE email = ?";
-        AppUser appUser = null;
-        appUser = jdbcTemplate.queryForObject(sql, appUserRowMapper, email);
+        AppUser appUser = jdbcTemplate.queryForObject(sql, appUserRowMapper, email);
         sql = "SELECT role FROM role WHERE userId = ?";
         List<String> roles = jdbcTemplate.queryForList(sql, String.class, appUser.getUserId());
         appUser.setRoles(roles);
@@ -60,7 +59,7 @@ public class AppUserDao {
         String sql = "UPDATE app_user SET email = ?, password = ?, firstname = ?, lastname = ?, gender = ?, age = ?, status = ?, currentid = ?, schoolname = ?, gpa = ?, sat_math = ?, SAT_reading = ?, SAT_writing = ?, ACT = ?, expense_limit = ? " +
                         " WHERE userId = ? ";
         int res = jdbcTemplate.update(sql, appUser.getEmail(), appUser.getPassword(), appUser.getFirstName(), appUser.getLastName(), appUser.getGender(),
-                   appUser.getAge(), appUser.getStatus(), appUser.getCurrentId(), appUser.getSchoolName(), appUser.getGpa(), appUser.getSAT_math(), appUser.getSAT_reading(), appUser.getSAT_wrting(), appUser.getACT(),
+                   appUser.getAge(), appUser.getStatus(), appUser.getCurrentId(), appUser.getSchoolName(), appUser.getGpa(), appUser.getSAT_math(), appUser.getSAT_reading(), appUser.getSAT_writing(), appUser.getACT(),
                     appUser.getExpense_limit(), appUser.getUserId());
         return res;
     }
@@ -69,13 +68,12 @@ public class AppUserDao {
     public void transactonTest() {
 //        String sql ="INSERT INTO student (NAME, AGE, GENDER, SAT_MATH, SAT_VERBAL, EXPENSE_LIMIT) VALUES(\"xxx111\", 111, \"sex\", 0, 0, 0)";
 //        jdbcTemplate.update(sql);
-//        throw new DataAccessException("created exception!") {};
+//        throw new DataAccessException("created exception!") {};   // throw exception, will rollback the update sql operation
     }
-
-
 }
 
 class AppUserRowMapper implements RowMapper<AppUser> {
+
     @Override
     public AppUser mapRow(ResultSet resultSet, int i) throws SQLException {
         AppUser appUser = new AppUser();
@@ -92,7 +90,7 @@ class AppUserRowMapper implements RowMapper<AppUser> {
         appUser.setGpa( resultSet.getDouble("gpa"));
         appUser.setSAT_math( resultSet.getInt("SAT_math"));
         appUser.setSAT_reading( resultSet.getInt("SAT_reading"));
-        appUser.setSAT_wrting( resultSet.getInt("SAT_writing"));
+        appUser.setSAT_writing( resultSet.getInt("SAT_writing"));
         appUser.setACT( resultSet.getInt("ACT"));
         appUser.setExpense_limit( resultSet.getInt("expense_limit"));
         return appUser;
