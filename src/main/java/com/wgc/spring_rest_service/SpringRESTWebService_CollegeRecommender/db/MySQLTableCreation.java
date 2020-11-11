@@ -60,7 +60,12 @@ public class MySQLTableCreation {
             stmt.executeUpdate(sql);
 
             // insert dummy data
-            sql = "INSERT INTO app_user (email, password, lastName, firstName, age, gpa)" + "VALUES ( \"admin@admin.com\", \"" + bCryptPasswordEncoder.encode("admin")
+            String testAdminPswd = bCryptPasswordEncoder.encode("admin");
+            System.out.println("-------------------- test data : ");
+            System.out.println("            ------------ email : admin@admin.com");
+            System.out.println("            ------------ password : "+ testAdminPswd);
+
+            sql = "INSERT INTO app_user (email, password, lastName, firstName, age, gpa)" + "VALUES ( \"admin@admin.com\", \"" + testAdminPswd
                     + "\", \"dummy-lastname\", \"dummy-firstname\", 0, 0.0)";
             stmt.executeUpdate(sql);
 
@@ -80,8 +85,6 @@ public class MySQLTableCreation {
     private void getTestData() {
         String USER_ID = "userId", EMAIL = "email", PASSWORD = "password", LASTNAME = "lastName", FIRSTNAME = "firstName"
                          , AGE = "age", GPA = "gpa", ROLE = "role";
-
-
 
         try( Connection conn = DriverManager.getConnection(MYSQL_DB_URL + "/" + MYSQL_DB_NAME, MYSQL_USERNAME, MYSQL_PASSWORD)) {
             Statement stmt = conn.createStatement();
