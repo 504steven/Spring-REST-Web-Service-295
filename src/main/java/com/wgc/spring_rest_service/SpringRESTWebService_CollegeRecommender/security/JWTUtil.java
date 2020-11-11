@@ -49,7 +49,7 @@ public class JWTUtil {
                 .sign(HMAC512(SECRET.getBytes()));
     }
 
-    public static void invalidToken(String token) {
+    public static void invalidateToken(String token) {
         invalidTokenSet.add(token);
     }
 
@@ -59,7 +59,6 @@ public class JWTUtil {
         User user = (User) auth.getPrincipal();
         return JWT.create()
                 .withSubject(user.getUsername())
-                //todo:  store claim for role info to JWT token
 //                .withArrayClaim("Roles", appUser.getRoles().toArray(new String[0]) )
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
