@@ -10,6 +10,7 @@ import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,18 +59,21 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public void logout(HttpServletRequest req, HttpServletRequest httpServletRequest, @RequestBody AppUser appUser) {
+    public void logout(Authentication auth, HttpServletRequest req, HttpServletRequest httpServletRequest, @RequestBody AppUser appUser) {
+        System.out.println(auth.toString());
+        System.out.println(auth.getName());
+        System.out.println(auth.getPrincipal().toString());
         MDC.put("userInfo", "User Id-" + appUser.getUserId());
         logger.info( req.getRequestURI() + ": User is trying to logout...");
         JWTUtil.verifyJWTwithUserId(req, appUser.getUserId());
         String authorizationHeader = httpServletRequest.getHeader( JWTUtil.HEADER_STRING);
-        JWTUtil.invalidToken( authorizationHeader.replace( JWTUtil.TOKEN_PREFIX, ""));
+        JWTUtil.invalidateToken( authorizationHeader.replace( JWTUtil.TOKEN_PREFIX, ""));
         logger.info("User logged out successfully");
         MDC.clear();
     }
 
     @PutMapping("/profile")
-    public void update(HttpServletRequest req,  @RequestBody AppUser appUser) {
+    public void update(Authentication auth, HttpServletRequest req, @RequestBody AppUser appUser) {
         MDC.put("userInfo", "User Id-" + appUser.getUserId());
         logger.info(req.getRequestURI() + ": User is trying to update profile...");
         JWTUtil.verifyJWTwithUserId(req, appUser.getUserId());
@@ -98,4 +102,6 @@ public class UserController {
         appUserDao.transactonTest();
         return null;
     }
+
+
 }
