@@ -22,7 +22,7 @@ public class AppUser{
     private int age;
     private double gpa;
     private int SAT_math;
-    private int SAT_wrting;
+    private int SAT_writing;
     private int SAT_reading;
     private int ACT;
     private int expense_limit;
@@ -133,12 +133,12 @@ public class AppUser{
         this.SAT_math = SAT_math;
     }
 
-    public int getSAT_wrting() {
-        return SAT_wrting;
+    public int getSAT_writing() {
+        return SAT_writing;
     }
 
-    public void setSAT_wrting(int SAT_wrting) {
-        this.SAT_wrting = SAT_wrting;
+    public void setSAT_writing(int SAT_writing) {
+        this.SAT_writing = SAT_writing;
     }
 
     public int getSAT_reading() {
