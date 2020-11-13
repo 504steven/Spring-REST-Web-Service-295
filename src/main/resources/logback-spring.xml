@@ -2,7 +2,7 @@
     <property name="LOG_DIR" value="./log" />
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern> %green(%d{HH:mm:ss.SSS}) %X{userInfo} [%thread] %highlight(%-5level) %logger{36} - %msg%n</pattern>
+            <pattern> %green(%d{HH:mm:ss.SSS}) %X{userId} %X{userEmail} [%thread] %highlight(%-5level) %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -28,7 +28,7 @@
 <!--        </rollingPolicy>-->
 
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %X{userInfo} [%thread] %-5level- %logger{35} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} %X{userId} %X{userEmail} [%thread] %-5level- %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
 
