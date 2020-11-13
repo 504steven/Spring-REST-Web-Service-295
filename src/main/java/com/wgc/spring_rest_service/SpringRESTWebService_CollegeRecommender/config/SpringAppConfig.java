@@ -15,7 +15,6 @@ import javax.sql.DataSource;
 import static com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.config.DBConfig.*;
 
 @Configuration
-@PropertySource("application.properties")
 @EnableTransactionManagement
 public class SpringAppConfig {
 
