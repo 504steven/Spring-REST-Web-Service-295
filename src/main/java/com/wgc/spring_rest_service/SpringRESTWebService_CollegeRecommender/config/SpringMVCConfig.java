@@ -14,7 +14,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// used in the proj ?
+// not used in the proj !!
 //@Configuration
 public class SpringMVCConfig implements WebMvcConfigurer {
 
