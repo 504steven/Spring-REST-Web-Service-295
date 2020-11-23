@@ -1,7 +1,5 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.controller;
 
-
-import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.mysql.cj.exceptions.WrongArgumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
