@@ -44,8 +44,9 @@ public class UserController {
         MDC.clear();
     }
 
+    // ResponseEntity<AppUser>:  AppUser + status code
     @PostMapping("/login")
-    public ResponseEntity<AppUser> login(HttpServletRequest req, HttpServletResponse response, @RequestBody AppUser appUser) {
+    public ResponseEntity<Object[]> login(HttpServletRequest req, HttpServletResponse response, @RequestBody AppUser appUser) {
         MDC.put("userEmail", "User Email-" + appUser.getEmail());
         logger.info( "{}: User is trying to login...", req.getRequestURI());
         AppUser appUserOnDB = appUserDao.getAppUserByEmail(appUser.getEmail());
@@ -59,7 +60,7 @@ public class UserController {
         response.addHeader( JWTUtil.HEADER_STRING, JWTUtil.TOKEN_PREFIX + JWTUtil.createTokenOnAppUser(appUserOnDB));
         logger.info("User logged in successfully.");
         MDC.clear();
-        return new ResponseEntity<>(appUserOnDB, HttpStatus.OK);
+        return new ResponseEntity<>(new Object[]{ appUserOnDB, JWTUtil.createTokenOnAppUser(appUserOnDB)}, HttpStatus.OK);
     }
 
     @PostMapping("/logout")
@@ -108,6 +109,4 @@ public class UserController {
         appUserDao.transactonTest();
         return null;
     }
-
-
 }

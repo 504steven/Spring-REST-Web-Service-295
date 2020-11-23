@@ -14,5 +14,6 @@ public class DBConfig {
     public static int MONGODB_PORT = 27017;
     public static String MONGODB_DB_NAME = "designyourcollege";
     public static String COLLEGE_COLLECTION = "colleges";
-
+    public static final String MONGODB_USERNAME = "seer";
+    public static final String MONGODB_PASSWORD = "seer";
 }

@@ -1,7 +1,6 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.db;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
