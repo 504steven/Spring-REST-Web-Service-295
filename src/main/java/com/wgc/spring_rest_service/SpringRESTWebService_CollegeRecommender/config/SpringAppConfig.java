@@ -1,14 +1,15 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.config;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
 
@@ -36,11 +37,18 @@ public class SpringAppConfig {
 
     @Bean
     public MongoDatabase getMongoDatabase() {
-        return new MongoClient(MONGODB_IP, MONGODB_PORT).getDatabase( MONGODB_DB_NAME);
+        MongoClientURI mongoClientURI = new MongoClientURI("mongodb://"+ MONGODB_USERNAME +":"
+                + MONGODB_PASSWORD + "@"+ MONGODB_IP +":"+ MONGODB_PORT+"/" + MONGODB_DB_NAME);
+        return new MongoClient( mongoClientURI).getDatabase(MONGODB_DB_NAME);
     }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
     }
 }
