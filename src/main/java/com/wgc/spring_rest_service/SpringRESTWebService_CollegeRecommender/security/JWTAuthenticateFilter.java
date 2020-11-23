@@ -42,7 +42,7 @@ public class JWTAuthenticateFilter extends BasicAuthenticationFilter {
                 httpServletRequest.setAttribute("userId", decodedJWT.getSubject());
             }
         }
-        if(auth == null) {
+        if(auth == null && !"/user/login".equals( httpServletRequest.getRequestURI())) {
             logger.error("user miss or wrong JWT.");
         }
         // this set Authentication to be a new one. So if the new one's authenticated = true, then it passes
