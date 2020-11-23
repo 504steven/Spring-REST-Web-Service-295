@@ -1,6 +1,7 @@
 package com.wgc.spring_rest_service.SpringRESTWebService_CollegeRecommender.db;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.IndexOptions;
@@ -22,7 +23,9 @@ public class MongoDBDataIndexCreation {
             , "tuition_and_fees", "sat_reading_25th_percentile_score", "sat_reading_75th_percentile_score", "sat_math_25th_percentile_score", "sat_math_75th_percentile_score", "sat_writing_25th_percentile_score", "sat_writing_75th_percentile_score", "act_25th_percentile_score", "act_75th_percentile_score"};
 
     public static void main(String[] args) {
-        MongoClient mongoClient = new MongoClient(MONGODB_IP, MONGODB_PORT);
+        MongoClientURI mongoClientURI = new MongoClientURI("mongodb://"+ MONGODB_USERNAME +":"
+                                            + MONGODB_PASSWORD + "@"+ MONGODB_IP +":"+ MONGODB_PORT+"/" + MONGODB_DB_NAME);
+        MongoClient mongoClient = new MongoClient( mongoClientURI);
         MongoDatabase db = mongoClient.getDatabase(MONGODB_DB_NAME);
         db.getCollection(COLLEGE_COLLECTION).drop();
 
